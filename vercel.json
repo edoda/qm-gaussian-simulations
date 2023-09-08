@@ -1,14 +1,9 @@
 {
-  "builds": [
-      {
-          "src": "flask_app/routes/index.py",
-          "use": "@vercel/python"
-      }
-  ],
-  "routes": [
-      {
-          "src": "/(.*)",
-          "dest": "flask_app/routes/index.py"
-      }
-  ]
-}
+    "version": 2,
+    "builds": [
+      { "src": "index.py", "use": "@vercel/python" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/index.py" }
+    ]
+  }
