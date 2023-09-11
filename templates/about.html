@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="./../static/styles.css"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <title>QM Wave Propagation</title>
 </head>
 <body>
@@ -14,7 +16,55 @@
     </ul>
 </nav>
 <div class="container">
-    <p>blah blah blah</p>
+    <div class="eqn-content">
+        <div class="eqn-section">
+            <div class="eqn">
+                <h3>Hamiltonian operator</h3>
+                <p>\( \hat H = \hat T+ \hat V = \frac{\mathbf{\hat p \cdot \hat p}}{2m} + V(\mathbf{r}, t) =-\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}, t) \)</p>
+            </div>
+            <div class="eqn">
+                <h3>Time-dependent Schrödinger Equation</h3>
+                <p>\( i \hbar \frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t) \)</p>
+            </div>
+            <div class="eqn">
+                <h3>General solution to time-dependent Schrödinger equation</h3>
+                <p>\( \Psi(x,t) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}\Phi(k)\Psi_{k}(x,t)dk \)</p>
+            </div>
+        </div>
+        <div class="eqn-section">
+            <ul>
+                <li>\(\hbar\) is Planck’s constant</li>
+                <li>\(m\) is the mass of the particle</li>
+                <li>\(V(\mathbf{r}, t)\) is the potential energy</li>
+                <li>\(\Psi(\mathbf{r},t)\) is a time-dependent wave function</li>
+                <li>\(\hat H\)  is the Hamiltonian operator</li>
+                <li>\(\nabla^{2}\) is the Laplacian operator</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <p>In quantum mechanics, we use the time-dependent Schrödinger equation 
+            $$ i \hbar \frac{\partial}{\partial t} \Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t) $$
+            to analyze the time evolution of a wave function \(\Psi(\mathbf{r},t)\). \(\Psi(\mathbf{r},t)\) is special because \(|\Psi(\mathbf{r},t)|^2\)
+            is the probability density of the particle's position, and \(\int_{a}^{b} | \Psi(\mathbf{r},t)|^2dx\) 
+            is equal to the probability of observing a particle between \((a, b)\) at some time \(t\); in other words, 
+            we can see how a quantum state of a particle should change in time in response to its environment and some applied potential. 
+            We also have a normalization condition \(\int_{-\infty}^{\infty} | \Psi(\mathbf{r},t)|^2dx =1\) which tells us the particle is definitely *somewhere*.
+        </p>
+        <p>
+            For the sake of simplicity, we will work in one spatial dimension (\(x\)), so 
+            
+            $$\Psi(\mathbf{r},t) \implies \Psi(x,t)$$ $$\hat H = -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}, t) \implies \hat H =  -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x,t),$$ 
+
+            and \(\Psi(x,t)\), our general solution to the time-dependent Schrödinger equation becomes the integral over the continuous variable 
+            k for each stationary state \(\Psi_k\):
+
+            $$ \Psi(x,t) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}\Phi(k)\Psi_{k}(x,t)dk $$ where
+
+            $$ \Psi_{k}(x,t) = e^{i(kx-\frac{\hbar k^2}{2m}t)} = e^{i(kx-\frac{E_{k}}{\hbar}t)} $$ represents a stationary state.
+        </p>
+        <p>So typically in quantum mechanics we have some initial condition \(\Psi(x,0)\) and need to find \(\Psi(x,t)\). In these simulations, we will construct our initial condition to be a normalized Gaussian wave packet.</p>
+    </div>
 </div>
 </body>
 </html>

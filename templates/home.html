@@ -5,8 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="./../static/styles.css"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <title>QM Wave Propagation</title>
-</head>
 <body>
 <nav>
     <ul>
@@ -16,20 +17,48 @@
 </nav>
 <div class="container">
   <div class="title">
-    <h1>Gaussian Wave Packet Propagation Simulations</h1>
+    <h1>Quantum Gaussian Wave Packet Propagation Simulations</h1>
   </div>
   <div class="content">
     <p>Simulation directory
-      <ul>
+      <ul style="display: flex; flex-wrap: wrap;">
         <li><a href="/simulation1">Rectangular Barrier</a></li>
         <li><a href="/simulation2">Rectangular Well</a></li>
         <li><a href="/simulation3">Non-Rectangular Well</a></li>
       </ul>
     </p>
-    <p>
-      Learn more <a href="/about">about this project</a>. (to-be edited)
-    </p>
-  </div>  
+  </div>
+  <div class="about-container">
+    <div class="about-content">
+      <h3>Wave Packets in Brief</h3>
+      <p>A wave packet is a burst of waves that can be superimposed via constructive interference from a potentially-infinite set of individual sinusodial waves, each with differing phases and amplitudes (each corresponding to specific specific energy or momentum state). <a href="https://en.wikipedia.org/wiki/Wave_packet" style="color: white;">[Wikipedia]</a></p>
+      <p>Wave packets are a mathematical construct that are useful across many various fields, including optics, acoustics, quantum mechanics, and signal processing.</p>
+    </div>
+    <div class="about-content">
+      <h3>Charactertistics of Wave Packets</h3>
+      <ul>
+        <li>Localization: Wave packets are localized in both position and momentum space, meaning that they have a well-defined range of possible positions and momenta for the quantum particle.</li>
+        <li>Dispersion: Over time, a wave packet will typically spread out due to the uncertainty principle. This dispersion leads to a gradual increase in the uncertainty in both position and momentum.</li>
+        <li>Group Velocity: The group velocity of a wave packet represents the velocity at which the maximum amplitude of the wave packet moves through space. This velocity is associated with the particle's classical velocity.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="background">
+    <h2>What is a Gaussian wave packet, and why do we use them?</h2>
+    <p>To begin, a Gaussian is a special function of the form
+
+      $$g(x) = e^{-x^2}$$ or $$g(x)=ae^{-\frac{(x-b)^2}{2c^2}},$$
+      where \(a\), \(b\), \(c \neq 0\), \(a\) is the height of the curve's peak, \(b\) is the position of the center of the peak, and \(c\) (the standard deviation) controls the width of the "bell." <a href="https://en.wikipedia.org/wiki/Wave_packet">[Wikipedia]</a></p>
+      
+    <p>Gaussian wave packets are described by wave functions \(\Psi(\mathbf{r},t)\), are localized in both position and momentum, and are used to describe QM scenarios where particles do not have well-defined positions or momenta.
+      We also use Gaussian wave packets because they:</p>
+        <ul style="padding-left: 30px;">
+            <li>are mathematically basic and simple to work with,</li>
+            <li>are useful for approximating more complex function, and are consistent with many experiemental observations,</li>
+            <li>yield bell-shaped probability distributions, and</li>
+            <li>remain Gaussian functions when a Fourier transform is applied (we’ll talk about this in <a href="/about">about</a>).</li>
+        </ul>
+  </div>
 </div>
 </body>
 </html>
