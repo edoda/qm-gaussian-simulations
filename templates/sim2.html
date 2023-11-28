@@ -38,7 +38,7 @@
                 async function setupPyodide(){
                     let pyodide = await loadPyodide();
                     console.log(pyodide.runPython(`import sys\nsys.version`));
-                    await pyodide.loadPackage(["numpy", "scipy", "matplotlib"]);
+                    await pyodide.loadPackage(["numpy", "scipy"]);
                     return pyodide;
                 }
 
@@ -46,11 +46,9 @@
                     pyodide.runPython(`
                         import numpy as np
                         import json
-                        import matplotlib
                         import scipy as sp
                         from scipy.sparse import linalg as ln
                         from scipy import sparse as sparse
-                        import matplotlib.animation as animation
                     
                         class Gaussian:
                             def __init__(self, resolution, dt, sigma0=5.0, k0=1.0, mu=0, x_begin=-200.0, x_end=200.0, barrier_height=1.0, barrier_width=3.0):
@@ -149,34 +147,34 @@
                             name: '|Psi|^2',
                             visible: 'legendonly'
                         }],
-                    {
-                        title: 'Wave Packet Evolution',
-                        xaxis: {title: 'X', autorange: false, range: [-200, 200]},
-                        yaxis: {title: '|Psi^2|', autorange: false, range: [-0.25, 0.45]},
-                        showlegend: true,
-                        updatemenus: [{
-                            buttons: [
-                                {
-                                    args: [{'visible': [true, false, true]}],
-                                    label: 'Real Part',
-                                    method: 'update'
-                                },
-                                {
-                                    args: [{'visible': [false, true, true]}],
-                                    label: 'Imaginary Part',
-                                    method: 'update'
-                                },
-                                {
-                                    args: [{'visible': [true, true, true]}],
-                                    label: 'Both',
-                                    method: 'update'
-                                },
-                                {
-                                    args: [{'visible': [false, false, true, true]}],
-                                    label: '|Psi|^2',
-                                    method: 'update'
-                                }
-                            ],
+                        {
+                            title: 'Wave Packet Evolution',
+                            xaxis: {title: 'X', autorange: false, range: [-200, 200]},
+                            yaxis: {title: '', autorange: false, range: [-0.25, 0.45]},
+                            showlegend: true,
+                            updatemenus: [{
+                                buttons: [
+                                    {
+                                        args: [{'visible': [true, false, true]}],
+                                        label: 'Real Part',
+                                        method: 'update'
+                                    },
+                                    {
+                                        args: [{'visible': [false, true, true]}],
+                                        label: 'Imaginary Part',
+                                        method: 'update'
+                                    },
+                                    {
+                                        args: [{'visible': [true, true, true]}],
+                                        label: 'Both',
+                                        method: 'update'
+                                    },
+                                    {
+                                        args: [{'visible': [false, false, true, true]}],
+                                        label: '|Psi|^2',
+                                        method: 'update'
+                                    }
+                                ],
                             direction: 'left',
                             pad: {'r': 10, 't': 10},
                             showactive: true,
@@ -225,7 +223,7 @@
 
                 document.getElementById('restartButton').addEventListener('click', async function() {
                     clearInterval(animationInterval);
-                    await initSim(pyodide); // Reinitalize at restart click event
+                    await initSim(pyodide);
                 });
             }
             main();

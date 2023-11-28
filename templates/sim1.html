@@ -51,11 +51,9 @@
                 let pythonCode = `
                     import numpy as np
                     import json
-                    import matplotlib
                     import scipy as sp
                     from scipy.sparse import linalg as ln
                     from scipy import sparse as sparse
-                    import matplotlib.animation as animation
                 
                     class Gaussian:
                         def __init__(self, resolution, dt, sigma0=5.0, k0=1.0, mu=0, x_begin=-200.0, x_end=200.0):
@@ -175,7 +173,7 @@
                 const layout = {
                     title: 'Wave Packet Evolution',
                     xaxis: {title: 'X', autorange: false, range: [-200, 200]},
-                    yaxis: {title: '|Psi^2|', autorange: false, range: [-0.25, 0.45]},
+                    yaxis: {title: '', autorange: false, range: [-0.25, 0.45]},
                     showlegend: true,
                     updatemenus: [{
                         buttons: [
@@ -243,16 +241,17 @@
 
             // Restart button event listener
             document.getElementById('restartButton').addEventListener('click', function() {
-                main(pyodideInstance, 'plotly-div1', potentialType, barrierWidth, barrierHeight, true); // Restart the animation with the 'restart' flag
+                main(pyodideInstance, 'plotly-div1', potentialType, barrierWidth, barrierHeight, true);
             });
         }
 
         async function loadAndRunSimulations() {
             let pyodideInstance = await loadPyodide();
-            await pyodideInstance.loadPackage(["numpy", "scipy", "matplotlib"]);
+            await pyodideInstance.loadPackage(["numpy", "scipy"]);
 
             main(pyodideInstance, 'plotly-div1', 'rectangular', 7, 1); // First simulation
-            //main(pyodideInstance, 'plotly-div2', 'parabolic', 0, 0); // Second simulation
+            //main(pyodideInstance, 'plotly-div2', 'parabolic', 0, 0); // Second simulation?
+
         }
 
         loadAndRunSimulations();
