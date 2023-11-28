@@ -74,6 +74,36 @@ a:hover {
     text-decoration: underline;
 }
 
+button {
+    display: inline-block;
+    outline: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 34px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #892424;
+    transition: background-color 0.2s ease-in-out 0s, opacity 0.2s ease-in-out 0s;
+    padding: 0 18px;
+}
+
+button:hover {
+    color: #ffffff;
+    background-color: #6d1d1d;
+}
+
+.button-container {
+    display: flex;
+    width: auto;
+    justify-content: center;
+}
+
 .container {
     margin-top: 60px;
     width: auto;

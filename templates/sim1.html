@@ -22,88 +22,117 @@
             <p>This simulation features a gaussian pulse/wavepacket propagating through time in a vacuum and scattering off of a rectangular barrier potential.</p>
         </div>
         <div class="content">
-            <p> $$\Psi(x, 0)=\frac{e^{i\phi}}{(2\pi\sigma^2)^{1/4}}e^{-\frac{(x-\mu)^2}{4\sigma^2}},$$
+            <p> The wave function \(\Psi(x, 0)\) describes the state of a quantum particle at initial time \(t=0\). In this simulation, the wave function is given by:
+                $$\Psi(x, 0)=\frac{e^{i\phi}}{(2\pi\sigma^2)^{1/4}}e^{-\frac{(x-\mu)^2}{4\sigma^2}},$$
                 \(\phi\) represents some arbitrary real phase-angle.
-                \(\sigma\) represents the standard deviation, which determines the spread or width of the curve. (fix), \(\mu\) represents the mean or central value of the </p>
+                \(\sigma\) represents the standard deviation, which determines the spread or width of the curve.
+                \(\mu\) represents mean or the central position of the wave packet, indicating where the wave packet is centered along the the x-axis at \(t=0\).
+                Lastly, the exponential term is the Gaussian function that shapes the amplitude of the wave packet, ensuring it is normally distributed around the mean \(\mu\).
+            </p>
         </div>
-        <div class="simulation">
-            <div id="plotly-div" style="width: 100%; height: 400px;"></div>
-            <script type="text/javascript">
-                async function main(){
-                    let pyodide = await loadPyodide();
-                    console.log(pyodide.runPython(`import sys\nsys.version`));
-                    await pyodide.loadPackage(["numpy", "scipy", "matplotlib"]); // Load the required packages
+        <div class="simulation" id="simulation1">
+            <div id="plotly-div1" style="width: 100%; height: 500px;"></div>
+        </div>
+        <!-- <div class="simulation" id="simulation2">
+            <div id="plotly-div2" style="width: 100%; height: 500px;"></div>
+        </div> -->
 
-                    pyodide.runPython(`
-                        import numpy as np
-                        import json
-                        import matplotlib
-                        import scipy as sp
-                        from scipy.sparse import linalg as ln
-                        from scipy import sparse as sparse
-                        import matplotlib.animation as animation
+        <div class="button-container">
+            <button id="startButton">Start Animation</button>
+            <button id="restartButton">Restart Animation</button>
+        </div>
+
+        <script type="text/javascript">
+            let animationInterval;
+            async function main(pyodideInstance, divId, potentialType, barrierWidth, barrierHeight, restart = false) {
+                if (restart) {
+                    clearInterval(animationInterval);
+                }
+                let pythonCode = `
+                    import numpy as np
+                    import json
+                    import matplotlib
+                    import scipy as sp
+                    from scipy.sparse import linalg as ln
+                    from scipy import sparse as sparse
+                    import matplotlib.animation as animation
+                
+                    class Gaussian:
+                        def __init__(self, resolution, dt, sigma0=5.0, k0=1.0, mu=0, x_begin=-200.0, x_end=200.0):
+                            self.resolution = resolution
+                            self.sigma0 = sigma0
+                            self.k0 = k0
+                            self.mu = mu
+                            self.dt = dt
+                            self.probability = np.zeros(resolution)
+                            
+                            #Spacial discretization
+                            self.x, self.dx = np.linspace(x_begin, x_end, resolution, retstep=True)        
+
+                            #Constructing wave function from Gaussian
+                            normalization = (2.0 * np.pi * sigma0**2)**(-0.25)
+                            gauss_term = np.exp(-(self.x - mu)**2 / (4.0 * sigma0**2))
+                            vel = np.exp(1.0j * k0 * self.x)
+                            self.psi = gauss_term * normalization * vel
+
+                            # Defining the potential barrier
+                            self.set_potential('${potentialType}', ${barrierWidth}, ${barrierHeight})
+
+                            # Creating the Hamiltonian Matrix
+                            h_diag = np.ones(resolution) / self.dx**2 + self.potential
+                            h_non_diag = np.ones(resolution - 1) * (-0.5 / self.dx**2)
+                            hamiltonian = sparse.diags([h_diag, h_non_diag, h_non_diag], [0, 1, -1])
+                            
+                            # Computing the Crank-Nicolson time evolution matrix -- see Notion
+                            implicit = (sparse.eye(self.resolution) - dt / 2.0j * hamiltonian).tocsc()
+                            explicit = (sparse.eye(self.resolution) + dt / 2.0j * hamiltonian).tocsc() 
+                            self.evolution_matrix = ln.inv(implicit).dot(explicit).tocsr()
+
+                        def get_probability(self):
+                            return (abs(self.psi)**2  * 4.4).tolist() #IDK why this is not scaling correctly... just using 4.4 as a scaling factor arbitrarily
+
+                        def set_potential(self, potential_type, barrier_width, barrier_height):
+                            if potential_type == 'parabolic':
+                                self.potential = 0.0001 * (self.x)**2
+                            elif potential_type == 'rectangular':
+                                self.potential = np.array(
+                                    [barrier_height if 0.0 < x - 50 < barrier_width else 0.0 for x in self.x])
+                            else:
+                                self.potential = np.zeros_like(self.x)
+                            
+                        def evolve(self):
+                            self.psi = self.evolution_matrix.dot(self.psi)
+                            self.probability = abs(self.psi)**2
+                            normalization = sum(self.probability)
+                            self.probability /= normalization
+                            self.psi /= normalization**0.5
                     
-                        class Gaussian:
-                            def __init__(self, resolution, dt, sigma0=5.0, k0=1.0, mu=0, x_begin=-200.0, x_end=200.0, barrier_height=1.0, barrier_width=3.0):
-                                self.resolution = resolution
-                                self.sigma0 = sigma0
-                                self.k0 = k0
-                                self.mu = mu
-                                self.dt = dt
-                                self.probability = np.zeros(resolution)
-                                self.barrier_width = barrier_width
-                                self.barrier_height = barrier_height
-                                
-                                #Spacial discretization
-                                self.x, self.dx = np.linspace(x_begin, x_end, resolution, retstep=True)        
-    
-                                #Constructing wave function from Gaussian
-                                normalization = (2.0 * np.pi * sigma0**2)**(-0.25)
-                                gauss_term = np.exp(-(self.x - mu)**2 / (4.0 * sigma0**2))
-                                vel = np.exp(1.0j * k0 * self.x)
-                                self.psi = gauss_term * normalization * vel
-    
-                                # Defining the potential barrier
-                                #self.potential = np.array(
-                                    #[barrier_height if 0.0 < pow(x - 50, 3) < barrier_width else 0.0 for x in self.x])
-                                self.potential = 0.0001 * (self.x)**2 
-                        
-                                # Creating the Hamiltonian Matrix
-                                h_diag = np.ones(resolution) / self.dx**2 + self.potential
-                                h_non_diag = np.ones(resolution - 1) * (-0.5 / self.dx**2)
-                                hamiltonian = sparse.diags([h_diag, h_non_diag, h_non_diag], [0, 1, -1])
-                                
-                                # Computing the Crank-Nicolson time evolution matrix -- see Notion
-                                implicit = (sparse.eye(self.resolution) - dt / 2.0j * hamiltonian).tocsc()
-                                explicit = (sparse.eye(self.resolution) + dt / 2.0j * hamiltonian).tocsc() 
-                                self.evolution_matrix = ln.inv(implicit).dot(explicit).tocsr()
+                        def get_data(self):
+                            return {
+                                'x': self.x.tolist(),
+                                'psi_real': self.psi.real.tolist(),
+                                'psi_imag': self.psi.imag.tolist(),
+                                'potential': (self.potential * 0.1).tolist()  # Scaled for visualization
+                            }
 
-                            def evolve(self):
-                                self.psi = self.evolution_matrix.dot(self.psi)
-                                self.probability = abs(self.psi)**2
-                                normalization = sum(self.probability)
-                                self.probability /= normalization
-                                self.psi /= normalization**0.5
-                                return self.probability
-                        
-                            def get_data(self):
-                                return {
-                                    'x': self.x.tolist(),
-                                    'psi_real': self.psi.real.tolist(),
-                                    'psi_imag': self.psi.imag.tolist(),
-                                    'potential': (self.potential * 0.1).tolist()  # Scaled for visualization
-                                }
+                    wave_packet = Gaussian(resolution=500, dt=0.5)
+                    wave_packet.set_potential('${potentialType}', ${barrierWidth}, ${barrierHeight})
+        
+                    def get_frame():
+                        data = wave_packet.get_data()
+                        data['probability'] = wave_packet.get_probability()
+                        wave_packet.evolve()
+                        return json.dumps(data)
+                `;
 
-                        wave_packet = Gaussian(resolution=500, dt=0.5, barrier_width=10, barrier_height=1)
+                // Run python code to set up environment
+                await pyodideInstance.runPython(pythonCode);
 
-                        def get_frame():
-                            data = wave_packet.get_data()
-                            wave_packet.evolve()
-                            return json.dumps(data)
-                    `);
-
-                const response = pyodide.runPython('import json\nget_frame()');
+                // Get initial data for Plotly
+                const response = pyodideInstance.runPython('import json\nget_frame()');
                 const initialData = JSON.parse(response);
+                const probabilityData = pyodideInstance.runPython('wave_packet.get_probability()');
+
 
                 // Create the initial Plotly plot
                 const trace1 = {
@@ -133,6 +162,16 @@
                     name: 'Potential'
                 };
 
+                const ProbabilityTrace = {
+                    type: 'scatter',
+                    mode: 'lines',
+                    x: initialData.x,
+                    y: probabilityData,
+                    line: {color: 'orange'},
+                    name: '|Psi|^2',
+                    visible: 'legendonly'
+                };
+
                 const layout = {
                     title: 'Wave Packet Evolution',
                     xaxis: {title: 'X', autorange: false, range: [-200, 200]},
@@ -154,6 +193,11 @@
                                 args: [{'visible': [true, true, true]}],
                                 label: 'Both',
                                 method: 'update'
+                            },
+                            {
+                                args: [{'visible': [false, false, true, true]}],
+                                label: '|Psi|^2',
+                                method: 'update'
                             }
                         ],
                         direction: 'left',
@@ -171,22 +215,48 @@
                     responsive: true
                 };
 
-                Plotly.newPlot('plotly-div', [trace1, trace2, potentialTrace], layout, config);
+                Plotly.newPlot(divId, [trace1, trace2, potentialTrace, ProbabilityTrace], layout, config);
 
-                // Update the plot with new data from Python at a regular interval
-                setInterval(async function () {
-                    const response = pyodide.runPython('get_frame()');
-                    const data = JSON.parse(response);
-                    const update = {
-                        y: [data.psi_real, data.psi_imag, data.potential]
-                    };
+                function startAnimation(pyodideInstance, divId) {
+                    if (animationInterval) clearInterval(animationInterval);
+                    animationInterval = setInterval(async function () {
+                        try {
+                            const frameResponse = await pyodideInstance.runPythonAsync('get_frame()');
+                            const newData = JSON.parse(frameResponse);
 
-                    Plotly.update('plotly-div', update);
-                }, 10); // Update animation frame every 10 milliseconds
-            }
-            main();
-            </script>
-        </div>
+                            Plotly.update(divId, {
+                                x: [[...newData.x], [...newData.x], [...newData.x], [...newData.x]], // Update x for all traces
+                                y: [newData.psi_real, newData.psi_imag, newData.potential, newData.probability] // Update y for all traces
+                            }, [0, 1, 2, 3]); // Update all traces
+                        } catch (error) {
+                            console.error(error);
+                            clearInterval(animationInterval);
+                        }
+                    }, 10);
+                }
+
+            // Start button event listener
+            document.getElementById('startButton').addEventListener('click', function() {
+                if (animationInterval) clearInterval(animationInterval);
+                startAnimation(pyodideInstance, 'plotly-div1');
+            });
+
+            // Restart button event listener
+            document.getElementById('restartButton').addEventListener('click', function() {
+                main(pyodideInstance, 'plotly-div1', potentialType, barrierWidth, barrierHeight, true); // Restart the animation with the 'restart' flag
+            });
+        }
+
+        async function loadAndRunSimulations() {
+            let pyodideInstance = await loadPyodide();
+            await pyodideInstance.loadPackage(["numpy", "scipy", "matplotlib"]);
+
+            main(pyodideInstance, 'plotly-div1', 'rectangular', 7, 1); // First simulation
+            //main(pyodideInstance, 'plotly-div2', 'parabolic', 0, 0); // Second simulation
+        }
+
+        loadAndRunSimulations();
+        </script>
     </div>
 </body>
 </html>

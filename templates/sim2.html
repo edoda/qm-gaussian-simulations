@@ -1,29 +1,240 @@
-<!--The template for displaying a specific physics simulation.-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="./../static/styles.css"/>
-<title>Rectangular Well</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./../static/styles.css"/>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+    <title>Parabolic Barrier</title>
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-    </ul>
-</nav>
-<div class="container">
-    <div class="content">
-        <h2>Rectangular Well Simulation</h2>
-        <p>This simulation features a gaussian pulse/wavepacket propagating through time in a vacuum and scattering off of a rectangular well potential.</p>
-    </div>
-    <div class="simulation">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h2>Parabolic Barrier Simulation</h2>
+            <p>This simulation features a gaussian pulse/wavepacket propagating through time in a vacuum and scattering off of a parabolic barrier potential.</p>
+        </div>
+        <div class="content">
+            <p> The wave function \(\Psi(x, 0)\) describes the state of a quantum particle at initial time \(t=0\). In this simulation, the wave function is given by:
+                $$\Psi(x, 0)=\frac{e^{i\phi}}{(2\pi\sigma^2)^{1/4}}e^{-\frac{(x-\mu)^2}{4\sigma^2}},$$
+                \(\phi\) represents some arbitrary real phase-angle.
+                \(\sigma\) represents the standard deviation, which determines the spread or width of the curve.
+                \(\mu\) represents mean or the central position of the wave packet, indicating where the wave packet is centered along the the x-axis at \(t=0\).
+                Lastly, the exponential term is the Gaussian function that shapes the amplitude of the wave packet, ensuring it is normally distributed around the mean \(\mu\).
+            </p>
+        </div>
+        <div class="simulation">
+            <div id="plotly-div" style="width: 100%; height: 400px;"></div>
+            <script type="text/javascript">
+                let animationInterval;
 
+                async function setupPyodide(){
+                    let pyodide = await loadPyodide();
+                    console.log(pyodide.runPython(`import sys\nsys.version`));
+                    await pyodide.loadPackage(["numpy", "scipy", "matplotlib"]);
+                    return pyodide;
+                }
+
+                async function initSim(pyodide) {
+                    pyodide.runPython(`
+                        import numpy as np
+                        import json
+                        import matplotlib
+                        import scipy as sp
+                        from scipy.sparse import linalg as ln
+                        from scipy import sparse as sparse
+                        import matplotlib.animation as animation
+                    
+                        class Gaussian:
+                            def __init__(self, resolution, dt, sigma0=5.0, k0=1.0, mu=0, x_begin=-200.0, x_end=200.0, barrier_height=1.0, barrier_width=3.0):
+                                self.resolution = resolution
+                                self.sigma0 = sigma0
+                                self.k0 = k0
+                                self.mu = mu
+                                self.dt = dt
+                                self.probability = np.zeros(resolution)
+                                self.barrier_width = barrier_width
+                                self.barrier_height = barrier_height
+                                
+                                #Spacial discretization
+                                self.x, self.dx = np.linspace(x_begin, x_end, resolution, retstep=True)        
+    
+                                #Constructing wave function from Gaussian
+                                normalization = (2.0 * np.pi * sigma0**2)**(-0.25)
+                                gauss_term = np.exp(-(self.x - mu)**2 / (4.0 * sigma0**2))
+                                vel = np.exp(1.0j * k0 * self.x)
+                                self.psi = gauss_term * normalization * vel
+    
+                                # Defining the potential barrier
+                                self.potential = 0.0001 * (self.x)**2 
+                        
+                                # Creating the Hamiltonian Matrix
+                                h_diag = np.ones(resolution) / self.dx**2 + self.potential
+                                h_non_diag = np.ones(resolution - 1) * (-0.5 / self.dx**2)
+                                hamiltonian = sparse.diags([h_diag, h_non_diag, h_non_diag], [0, 1, -1])
+                                
+                                # Computing the Crank-Nicolson time evolution matrix -- see Notion
+                                implicit = (sparse.eye(self.resolution) - dt / 2.0j * hamiltonian).tocsc()
+                                explicit = (sparse.eye(self.resolution) + dt / 2.0j * hamiltonian).tocsc() 
+                                self.evolution_matrix = ln.inv(implicit).dot(explicit).tocsr()
+
+                            def get_probability(self):
+                                return (abs(self.psi)**2  * 4.4).tolist() #IDK why this is not scaling correctly... just using 4.4 as a scaling factor arbitrarily
+
+                            def evolve(self):
+                                self.psi = self.evolution_matrix.dot(self.psi)
+                                self.probability = abs(self.psi)**2
+                                normalization = sum(self.probability)
+                                self.probability /= normalization
+                                self.psi /= normalization**0.5
+                        
+                            def get_data(self):
+                                return {
+                                    'x': self.x.tolist(),
+                                    'psi_real': self.psi.real.tolist(),
+                                    'psi_imag': self.psi.imag.tolist(),
+                                    'potential': (self.potential * 0.1).tolist()  # Scaled for visualization
+                                }
+
+                        wave_packet = Gaussian(resolution=500, dt=0.5, barrier_width=10, barrier_height=1)
+
+                        def get_frame():
+                            data = wave_packet.get_data()
+                            data['probability'] = wave_packet.get_probability()
+                            wave_packet.evolve()
+                            return json.dumps(data)
+                    `);
+
+                    const response = pyodide.runPython('import json\nget_frame()');
+                    const initialData = JSON.parse(response);
+                    const probabilityData = pyodide.runPython('wave_packet.get_probability()');
+                    Plotly.newPlot('plotly-div', [
+                        {
+                            type: 'scatter',
+                            mode: 'lines',
+                            x: initialData.x,
+                            y: initialData.psi_real,
+                            line: {color: 'blue'},
+                            name: 'Real Part'
+                        },
+                        {
+                            type: 'scatter',
+                            mode: 'lines',
+                            x: initialData.x,
+                            y: initialData.psi_imag,
+                            line: {color: 'red'},
+                            name: 'Imaginary Part'
+                        },
+                        {
+                            type: 'scatter',
+                            mode: 'lines',
+                            x: initialData.x,
+                            y: initialData.potential,
+                            line: {color: 'green'},
+                            name: 'Potential'
+                        }, 
+                        {
+                            type: 'scatter',
+                            mode: 'lines',
+                            x: initialData.x,
+                            y: probabilityData,
+                            line: {color: 'orange'},
+                            name: '|Psi|^2',
+                            visible: 'legendonly'
+                        }],
+                    {
+                        title: 'Wave Packet Evolution',
+                        xaxis: {title: 'X', autorange: false, range: [-200, 200]},
+                        yaxis: {title: '|Psi^2|', autorange: false, range: [-0.25, 0.45]},
+                        showlegend: true,
+                        updatemenus: [{
+                            buttons: [
+                                {
+                                    args: [{'visible': [true, false, true]}],
+                                    label: 'Real Part',
+                                    method: 'update'
+                                },
+                                {
+                                    args: [{'visible': [false, true, true]}],
+                                    label: 'Imaginary Part',
+                                    method: 'update'
+                                },
+                                {
+                                    args: [{'visible': [true, true, true]}],
+                                    label: 'Both',
+                                    method: 'update'
+                                },
+                                {
+                                    args: [{'visible': [false, false, true, true]}],
+                                    label: '|Psi|^2',
+                                    method: 'update'
+                                }
+                            ],
+                            direction: 'left',
+                            pad: {'r': 10, 't': 10},
+                            showactive: true,
+                            type: 'buttons',
+                            x: 0.7,
+                            xanchor: 'left',
+                            y: 1,
+                            yanchor: 'top'
+                        }]
+                    }, 
+                    {
+                        responsive: true
+                    }
+                );
+            }
+
+            function startAnimation(pyodide){
+                if (animationInterval) clearInterval(animationInterval);
+                    animationInterval = setInterval(async function () {
+                    try{
+                        const frameResponse = await pyodide.runPythonAsync('get_frame()');
+                        const newData = JSON.parse(frameResponse);
+
+                        const probabilityResponse = await pyodide.runPythonAsync('wave_packet.get_probability()');
+                        const probabilityData = JSON.parse(probabilityResponse);
+
+                        Plotly.update('plotly-div', {
+                            y: [newData.psi_real, newData.psi_imag, newData.potential, probabilityData]
+                        });
+                    } 
+                    catch(error){
+                        console.error(error);
+                        clearInterval(animationInterval);
+                    }
+                }, 10);
+            }
+
+
+            async function main() {
+                const pyodide = await setupPyodide();
+                await initSim(pyodide);
+
+                document.getElementById('startButton').addEventListener('click', function() {
+                    startAnimation(pyodide);
+                });
+
+                document.getElementById('restartButton').addEventListener('click', async function() {
+                    clearInterval(animationInterval);
+                    await initSim(pyodide); // Reinitalize at restart click event
+                });
+            }
+            main();
+            </script>
+        </div>
+        <div class="button-container">
+            <button id="startButton">Start Animation</button>
+            <button id="restartButton">Restart Animation</button>
+        </div>
     </div>
-</div>
 </body>
-</html>
 </html>
