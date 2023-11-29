@@ -71,10 +71,16 @@
                                 self.psi = gauss_term * normalization * vel
     
                                 # Defining the potential barrier
-                                self.potential = np.array(
-                                    [-barrier_height if 0.0 < x - 50 < barrier_width else 0.0 for x in self.x])
+                                self.potential = np.array([-barrier_height if 0.0 < x - 50 < barrier_width else 0.0 for x in self.x])
  
-                        
+                                # ----------------------------------------------
+                                # Code citation:
+                                # Title: Quantum Tunneling
+                                # Author: Patrick Gono
+                                # Date: October 27, 2019
+                                # Code version: N/A
+                                # Availability: https://physicspython.wordpress.com/2019/10/27/quantum-tunneling-part-3/
+
                                 # Creating the Hamiltonian Matrix
                                 h_diag = np.ones(resolution) / self.dx**2 + self.potential
                                 h_non_diag = np.ones(resolution - 1) * (-0.5 / self.dx**2)
@@ -84,6 +90,7 @@
                                 implicit = (sparse.eye(self.resolution) - dt / 2.0j * hamiltonian).tocsc()
                                 explicit = (sparse.eye(self.resolution) + dt / 2.0j * hamiltonian).tocsc() 
                                 self.evolution_matrix = ln.inv(implicit).dot(explicit).tocsr()
+                                # ----------------------------------------------
 
                             def get_probability(self):
                                 return (abs(self.psi)**2  * 4.4).tolist() #IDK why this is not scaling correctly... just using 4.4 as a scaling factor arbitrarily
