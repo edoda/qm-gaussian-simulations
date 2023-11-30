@@ -157,14 +157,14 @@ button:hover {
     height: auto;
 }
 
-.methods-container{
+.about-container{
     width: 100%;
     gap: 15px;
     height: auto;
     display: flex;
 }
 
-.methods-content{
+.about-content{
     background-color: #892424;
     width: 100%;
     padding-top: 1em;

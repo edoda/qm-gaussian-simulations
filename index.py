@@ -11,24 +11,20 @@ def home():
 def methods():
     return render_template('methods.html')
 
-
 @app.route('/about')
 def about():
     return render_template('about.html')
 
 @app.route('/simulation1')
 def simulation1():
-
     return render_template('sim1.html')
 
 @app.route('/simulation2')
 def simulation2():
-
     return render_template('sim2.html')
 
 @app.route('/simulation3')
 def simulation3():
-
     return render_template('sim3.html')
 
 if __name__ == '__main__':
