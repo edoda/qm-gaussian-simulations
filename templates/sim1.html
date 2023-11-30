@@ -13,6 +13,7 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/methods">Methods</a></li>
             <li><a href="/about">About</a></li>
         </ul>
     </nav>
@@ -120,7 +121,7 @@
                                 'x': self.x.tolist(),
                                 'psi_real': self.psi.real.tolist(),
                                 'psi_imag': self.psi.imag.tolist(),
-                                'potential': (self.potential * 0.1).tolist()  # Scaled for visualization
+                                'potential': (self.potential *.25).tolist()  # Scaled for visualization
                             }
 
                     wave_packet = Gaussian(resolution=500, dt=0.5)
@@ -259,7 +260,7 @@
             let pyodideInstance = await loadPyodide();
             await pyodideInstance.loadPackage(["numpy", "scipy"]);
 
-            main(pyodideInstance, 'plotly-div1', 'rectangular', 7, 1); // First simulation
+            main(pyodideInstance, 'plotly-div1', 'rectangular', 4, .7); // First simulation
             //main(pyodideInstance, 'plotly-div2', 'parabolic', 0, 0); // Second simulation...
 
         }

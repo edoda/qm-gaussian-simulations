@@ -7,6 +7,11 @@ app = Flask(__name__, template_folder=os.path.abspath('./templates'))
 def home():
     return render_template('home.html')
 
+@app.route('/methods')
+def methods():
+    return render_template('methods.html')
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')
