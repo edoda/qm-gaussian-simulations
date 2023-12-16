@@ -13,6 +13,16 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
+            <li class="dropdown">
+                <button class="dropbtn">Simulations
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/simulation1">Rectangular Barrier</a>
+                    <a href="/simulation3">Rectangular Well</a>
+                    <a href="/simulation2">Parabolic Barrier</a>
+                </div>
+            </li>
             <li><a href="/methods">Methods</a></li>
             <li><a href="/about">About</a></li>
         </ul>
@@ -32,6 +42,7 @@
             </p> 
         </div>
         <div class="simulation">
+            <div id="loading" class="loading">Loading...</div>
             <div id="plotly-div" style="width: 100%; height: 400px;"></div>
             <script type="text/javascript">
                 let animationInterval;
@@ -44,6 +55,8 @@
                 }
 
                 async function initSim(pyodide) {
+                    document.getElementById('loading').style.display = 'flex';
+
                     pyodide.runPython(`
                         import numpy as np
                         import json
@@ -198,7 +211,11 @@
                     {
                         responsive: true
                     }
-                );
+                )
+                .then(function() {
+                // Hide the loading div once the plot is ready
+                document.getElementById('loading').style.display = 'none';
+                });
             }
 
             function startAnimation(pyodide){
@@ -232,9 +249,11 @@
 
                 document.getElementById('restartButton').addEventListener('click', async function() {
                     clearInterval(animationInterval);
+                    document.getElementById('loading').style.display = 'flex'; // Show loading
                     await initSim(pyodide);
                 });
             }
+
             main();
             </script>
         </div>
