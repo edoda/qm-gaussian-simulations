@@ -5,8 +5,8 @@ This website, developed for PHYS-495 (senior final project) at the University of
 How to run the Github project locally:
 1. Clone the Github repository.
 2. In terminal, type: 
-    a. source venv/bin/activate
-    b. export FLASK_APP=[index.py](http://index.py/)
-    c. export FLASK_ENV=development
-    d. flask run
+    1. source venv/bin/activate
+    2. export FLASK_APP=[index.py](http://index.py/)
+    3. export FLASK_ENV=development
+    4. flask run
 3. Visit http://127.0.0.1:5000/ (5000 is the default port used by Flask).
