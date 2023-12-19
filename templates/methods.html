@@ -27,6 +27,7 @@
 <div class="container">
     <div class="content">
         <h2>Methods</h2>
+        <p>A detailed explanation of the mathematics behind this simulation.</p>
     </div>
     <div class="eqn-content">
         <div class="eqn-section">
@@ -45,12 +46,12 @@
         </div>
         <div class="eqn-section">
             <ul>
-                <li>\(\hbar\) is Planck’s constant</li>
-                <li>\(m\) is the mass of the particle</li>
-                <li>\(V(\mathbf{r}, t)\) is the potential energy</li>
-                <li>\(\Psi(\mathbf{r},t)\) is a time-dependent wave function</li>
-                <li>\(\hat H\)  is the Hamiltonian operator</li>
-                <li>\(\nabla^{2}\) is the Laplacian operator</li>
+                <li><p>\(\hbar\) is Planck’s constant</p></li>
+                <li><p>\(m\) is the mass of the particle</p></li>
+                <li><p>\(V(\mathbf{r}, t)\) is the potential energy</p></li>
+                <li><p>\(\Psi(\mathbf{r},t)\) is a time-dependent wave function</p></li>
+                <li><p>\(\hat H\)  is the Hamiltonian operator</p></li>
+                <li><p>\(\nabla^{2}\) is the Laplacian operator</p></li>
             </ul>
         </div>
     </div>
@@ -80,10 +81,10 @@
         $$\Psi(x, 0)=\frac{e^{i\phi}}{(2\pi\sigma^2)^{1/4}}e^{-\frac{(x-\mu)^2}{4\sigma^2}},$$
         where</p>
         <ul>
-            <li>\(\phi\) represents some arbitary real phase-angle,</li>
-            <li>\(\mu\) represents the mean or central value of the distribution, which determines where the peak of the curve is located on the x-axis,</li>
-            <li>\(\sigma\) represents the standard deviation, which determines the spread or width of the curve, and</li>
-            <li>\(\phi\) is the phase of the exponential, and is proportional to the product of a wavevector \(k_{0}\) and the position \(x\).</li>
+            <li><p>\(\phi\) represents some arbitary real phase-angle,</p></li>
+            <li><p>\(\mu\) represents the mean or central value of the distribution, which determines where the peak of the curve is located on the x-axis,</p></li>
+            <li><p>\(\sigma\) represents the standard deviation, which determines the spread or width of the curve, and</p></li>
+            <li><p>\(\phi\) is the phase of the exponential, and is proportional to the product of a wavevector \(k_{0}\) and the position \(x\).</p></li>
         </ul>  
         <p>Now that we have our Gaussian wavefunction, we can construct the Hamiltonian
 
@@ -97,7 +98,7 @@
         </p> 
     </div>
     <div class="collapsible">
-        <h2>Aside on Discretization and Types of Numerical Methods</h2>
+        <h3>Aside on Discretization and Types of Numerical Methods</h3>
     </div>
     <div class="collapsible-container">
         <div class="collapsible-content">
@@ -115,15 +116,15 @@
 
             where
             <ul>
-                <li>\(f(i,j)\) represents the value of the function at grid point \((i,j)\), and</li>
-                <li>\(\Delta x\) and \(\Delta y\) are the grid spacings/step size in the x and y directions, respectively.</li>
+                <li><p>\(f(i,j)\) represents the value of the function at grid point \((i,j)\), and</p></li>
+                <li><p>\(\Delta x\) and \(\Delta y\) are the grid spacings/step size in the x and y directions, respectively.</p></li>
             </ul>
             </p>
             <p>This discrete approximation replaces the Laplacian operator in the PDE with a system of equations, allowing us to update the function \(f\) at each grid point over time.</p>
             <p>Finite differences methods can be classified into explicit and implicit schemes, each with its own advantages and limitations. They are particularly suitable for problems with regular geometries and straightforward boundary conditions.</p>
             <ul>
-                <li><b>Pros:</b> Straightforward, easy to implement.</li>
-                <li><b>Cons:</b> Not very accurate, is numerically unstable for certain combinations of time step sizes and spatial grid spacings, and is difficult to implement boundary conditions in.</li>
+                <li><p>Pros: Straightforward, easy to implement.</p></li>
+                <li><p>Cons: Not very accurate, is numerically unstable for certain combinations of time step sizes and spatial grid spacings, and is difficult to implement boundary conditions in.</p></li>
             </ul>
             </p>
 
@@ -131,14 +132,14 @@
             <p>The Crank-Nicholson method is another widely used approach for solving PDEs, including the Schrödinger equation.</p>
             <p>It is a semi-implicit method that combines both implicit and explicit time-stepping schemes, offering a balance between stability and accuracy. Crank-Nicholson is known for its:</p>
             <ul>
-                <li><b>Pros:</b> High stability, high accuracy, and better for more complex systems.</li>
-                <li><b>Cons:</b> More difficult to implement with more involved formulas.</ul>
+                <li><p>Pros: High stability, high accuracy, and better for more complex systems.</p></li>
+                <li><p>Cons: More difficult to implement with more involved formulas.</p></ul>
             </ul>
             <p>When solving time-dependent problems with Crank-Nicholson, you can achieve accurate and stable results, especially for systems with varying potentials or wavefunctions.</p>
         </div>
     </div>
 
-    <div class="content">
+    <div class="content" style="margin-top: 0;">
         <p>In the case of our Schrodinger equation, we are working in one dimension and are applying the Laplacian operator to our wavefunctions, hence our spatial discretization 
         formula for the Laplacian operator acting on a wavefunction is
 
@@ -156,7 +157,7 @@
     var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
-            var h2 = this.querySelector('h2'); // Select the h2 within the .collapsible div
+            var h2 = this.querySelector('h3'); // Select the h2 within the .collapsible div
             h2.classList.toggle("active"); // Toggle the active class on h2
             var content = this.nextElementSibling;
             if (content.style.maxHeight) {
