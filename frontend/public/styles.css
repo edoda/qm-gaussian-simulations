@@ -1,0 +1,386 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import "@radix-ui/themes/styles";
+
+html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+ padding-bottom: .5rem;
+}
+
+.AboutContainer {
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: var(--accent-2);
+    box-shadow: var(--shadow-2);
+    border-radius: var(--radius-3); 
+    border: 2px solid var(--accent-10); 
+    color: var(--accent-12); 
+    align-content: center;
+    text-align: left;
+}
+
+.AboutContainerVariant {
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  align-content: center;
+  background-color: var(--accent-1);
+  border: 2px solid var(--accent-10);
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);  
+  color: var(--accent-12); 
+}
+
+.AboutContainerVariant h3, h2 { 
+  color: var(--accent-12); 
+}
+
+.InfoSection {
+  width: 100%;
+  padding: 3em 3em 3em 3em;
+  box-sizing: border-box;
+}
+
+.InfoSection h2 {
+  color: var(--accent-11);
+}
+
+.EqnContent {
+  border: 2px solid var(--accent-10);
+  box-shadow: var(--shadow-5);
+  padding: 2rem;
+  background-color: var(--accent-2);
+}
+
+.EqnSection {
+  align-content: center;
+}
+
+.Eqn {
+  padding-bottom: .5rem;
+}
+
+.EqnBullet {
+  padding-bottom: .5rem;
+  display: list-item;
+  list-style: disc;
+}
+
+.Eqn li,
+.EqnBullet li {
+  margin-top: 2rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.button-container button {
+    margin: 1rem;
+}
+
+/* navbar */
+button,
+p {
+  all: unset;
+}
+
+.NavigationMenuRoot {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  width: 100%;
+}
+
+.NavigationMenuList {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  list-style: none;
+  background-color: var(--accent-2);
+  width: fit-content;
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+}
+
+.NavigationMenuTrigger,
+.NavigationMenuLink {
+  color: var(--accent-11);
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: .5em;
+  margin: .5em;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: var(--radius-3);
+  transition: background-color 0.2s ease;
+  height: 100%;
+}
+
+/* Focus Outline */
+.NavigationMenuTrigger:focus,
+.NavigationMenuLink:focus {
+  outline: 2px solid var(--accent-11);
+  outline-offset: 2px;
+  height: 100%;
+
+}
+
+/* Hover State */
+.NavigationMenuTrigger:hover,
+.NavigationMenuLink:hover {
+  background-color: var(--accent-9);
+  height: 100%;
+  color: var(--accent-1);
+}
+
+/* dropdown caret icon */
+.CaretDown {
+  margin-left: 4px;
+  transition: transform 250ms ease;
+}
+[data-state="open"] > .CaretDown {
+  transform: rotate(-180deg);
+}
+
+/* dropdown container */
+.NavigationMenuContent {
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background-color: var(--accent-1);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+  z-index: 101;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+}
+
+/* arrow indicator under the trigger */
+.NavigationMenuIndicator {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 10px;
+  top: 100%;
+  transition: width, transform 250ms ease;
+  z-index: 9999;
+}
+.NavigationMenuIndicator[data-state="visible"] {
+  animation: fadeIn 200ms ease;
+}
+.NavigationMenuIndicator[data-state="hidden"] {
+  animation: fadeOut 200ms ease;
+}
+.Arrow {
+  position: relative;
+  top: 70%;
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-1);
+  transform: rotate(45deg);
+  border-top-left-radius: var(--radius-1);
+}
+
+/* viewport for submenus (required by radix) */
+.ViewportPosition {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  perspective: 2000px;
+}
+.NavigationMenuViewport {
+  position: relative;
+  transform-origin: top center;
+  margin-top: 8px;
+  width: 100%;
+  background-color: var(--accent-1);
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  box-shadow: var(--shadow-3);
+  height: var(--radix-navigation-menu-viewport-height);
+  transition: width, height, 300ms ease;
+}
+
+/* submenu layout */
+.List {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+}
+
+/* submenu links */
+.ListItemLink {
+  display: block;
+  text-decoration: none;
+  color: var(--accent-12);
+  font-size: 15px;
+  padding: 8px 12px;
+  border-radius: var(--radius-3);
+  transition: background-color 0.15s ease-in-out;
+  height: 100%;
+}
+.ListItemLink:hover {
+  background-color: #f4f4f4;
+}
+
+/* headings and text inside dropdown items (optional) */
+.ListItemHeading {
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: var(--accent-12);
+}
+.ListItemText {
+  color: var(--accent-9);
+  font-size: 14px;
+}
+
+/* Animations for opening/closing the menu */
+.NavigationMenuContent[data-motion="from-start"] {
+  animation-name: enterFromLeft;
+}
+.NavigationMenuContent[data-motion="from-end"] {
+  animation-name: enterFromRight;
+}
+.NavigationMenuContent[data-motion="to-start"] {
+  animation-name: exitToLeft;
+}
+.NavigationMenuContent[data-motion="to-end"] {
+  animation-name: exitToRight;
+}
+.NavigationMenuViewport[data-state="open"] {
+  animation: scaleIn 200ms ease;
+}
+.NavigationMenuViewport[data-state="closed"] {
+  animation: scaleOut 200ms ease;
+}
+
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes exitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+@keyframes exitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+/* Media query for desktop (optional) */
+@media (min-width: 600px) {
+  .NavigationMenuViewport {
+    width: var(--radix-navigation-menu-viewport-width);
+  }
+}
+
+/* collapsible divs */
+.CollapsibleRoot {
+  background-color: var(--accent-2);
+  width: 100%;
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+  padding: 2em;
+}
+
+/* plotly div */
+.PlotlyDiv {
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+  width: 100%;
+  height: 100%;
+}

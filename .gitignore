@@ -1,5 +1,7 @@
 venv/
-
+.venv/
+.env
+.env.local
 *.pyc
 __pycache__/
 
@@ -13,3 +15,9 @@ dist/
 build/
 *.egg-info/
 **/*.ipynb
+
+frontend/node_modules/
+.babelrc
+webpack.config.js
+gaussian_tester.ipynb
+vercel.json
