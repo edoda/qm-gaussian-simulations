@@ -16,19 +16,19 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/methods" element={<Methods />} />
           {simulationInfo.map((simulation, index) => (
-            <Route
-              key={index}
-              path={simulation.path}
-              element={
-                <SimulationPage
-                  title={simulation.title}
-                  description={simulation.description}
-                  simulationType={simulation.simulationType}
-                  parameters={simulation.parameters}
-                />
-              }
-            />
-          ))}
+          <Route
+            key={index}
+            path={simulation.path}
+            element={
+              <SimulationPage
+                title={simulation.title}
+                description={simulation.description}
+                simulationType={simulation.simulationType}
+                defaultParameters={simulation.parameters}
+              />
+            }
+          />
+        ))}
         </Routes>
       </Router>
   );

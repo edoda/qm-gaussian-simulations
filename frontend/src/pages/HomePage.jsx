@@ -10,13 +10,16 @@ import {
   Flex,
   Container,
   Section,
+  Separator,
   Grid,
+  HoverCard,
+  Strong,
 } from "@radix-ui/themes";
 
 const Home = () => {
   return (
-    <Container>
-      <Section size={1}>
+    <Container width={'100%'}>
+      <Section py='6'>
         <Heading
           size="8"
           align='center'
@@ -27,96 +30,72 @@ const Home = () => {
           Quantum Gaussian Wave Packet Propagation Simulations
         </Heading>
       </Section>
-
-        <Flex
-          display='flex'
-          direction={{ initial: 'column', md: 'row' }}
-          style={{
-            marginLeft: 10,
-            marginRight: 10,
-            gap: 10,
-            alignContent: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box className="AboutContainer">
-            <Heading
-              as="h3"
-              size='5'
-              weight='bold'
-            >
-              Wave Packets in Brief
-            </Heading>
+      <Grid
+        className="AboutContainer"
+        columns={{ initial: "1fr", md: "1fr 1fr" }}
+      >
+        <Section className="GridSection">
+          <Heading as="h3" size="5" weight="bold">
+            Wave Packets in Brief
+          </Heading>
+          <Separator orientation="horizontal" size="4" />
+          <Section py="3">
             <Flex direction="column" gap="1">
-              <Box><Text
-                as="p"
-                size='3'
-                style={{ fontSize: "16px", marginBottom: "1em" }}
-              >
+              <Text as="p" size="3" style={{ fontSize: "16px", marginBottom: "1em" }}>
                 A wave packet is a burst of waves that can be superimposed via
                 constructive interference from a potentially infinite set of
                 individual sinusoidal waves, each with differing phases and
                 amplitudes (each corresponding to specific energy or momentum
                 state).{" "}
-                <RadixLink
-                  href="https://en.wikipedia.org/wiki/Wave_packet"
-                  target="_blank"
-                >
+                <RadixLink href="https://en.wikipedia.org/wiki/Wave_packet" target="_blank">
                   [Wikipedia]
                 </RadixLink>
-              </Text></Box>
-              
-              <Box>
-                <Text
-                as="p"
-                size='3'
-                style={{ fontSize: "16px", marginBottom: "1em" }}
-                >
+              </Text>
+              <Text as="p" size="3" style={{ fontSize: "16px", marginBottom: "1em" }}>
                 Wave packets are a mathematical construct that are useful across
                 many fields, including optics, acoustics, quantum mechanics, and
                 signal processing.
               </Text>
-            </Box>
             </Flex>
-          </Box>
-
-          <Box className="AboutContainer">
-            <Heading
-              as="h3"
-              size='5'
-              weight='bold'
-            >
-              Characteristics of Wave Packets
-            </Heading>
-            <Flex as='ul' direction='column' gap='1' style={{ margin: 0 }}>
-              <Box as='li'>
-                <Text as="p" size='3'>
-                  <strong>Localization:</strong> Wave packets are localized in
+          </Section>
+        </Section>
+        <Section className="GridSection">
+          <Heading as="h3" size="5" weight="bold">
+            Characteristics of Wave Packets
+          </Heading>
+          <Separator orientation="horizontal" size="4" />
+          <Section py="3">
+            <Flex as="ul" direction="column" gap="1" style={{ margin: 0 }}>
+              <Box as="li">
+                <Text as="p" size="3">
+                  <Strong>Localization:</Strong> Wave packets are localized in
                   both position and momentum space.
                 </Text>
               </Box>
-              <Box as='li' >
-                <Text as="p" size='3'>
-                  <strong>Dispersion:</strong>  Over time, a wave packet will 
+              <Box as="li">
+                <Text as="p" size="3">
+                  <Strong>Dispersion:</Strong> Over time, a wave packet will 
                   typically spread out due to the uncertainty principle. This 
                   dispersion leads to a gradual increase in the uncertainty in 
                   both position and momentum.
                 </Text>
               </Box>
-              <Box as='li'>
-                <Text as="p" size='3'>
-                  <strong>Group Velocity:</strong> The group velocity of a wave
-                    packet represents the velocity at which the maximum amplitude
-                    of the wave packet moves through space. This velocity is
-                    associated with the particle's classical velocity.
+              <Box as="li">
+                <Text as="p" size="3">
+                  <Strong>Group Velocity:</Strong> The group velocity of a wave
+                  packet represents the velocity at which the maximum amplitude
+                  of the wave packet moves through space. This velocity is
+                  associated with the particle's classical velocity.
                 </Text>
               </Box>
             </Flex>
-          </Box>
-        </Flex>
+          </Section>
+        </Section>
+      </Grid>
 
-      <Section className="InfoSection">
-        <Heading as="h2" size="5">
+
+      <Section className="InfoSection" py='6'>
+        <Heading as="h2" size="6" align='center'>
           What is a Gaussian wave packet, and why do we use them?
         </Heading>
         <Flex as='ul' direction='column'>
@@ -131,20 +110,32 @@ const Home = () => {
             </Latex>
             where <Latex>{`\\( a \\)`}, {`\\( b \\)`}, {`\\( c \\neq 0 \\)`}</Latex>, and {" "}
             <Latex>{`\\( a \\)`}</Latex>  is the height of the curve's peak, <Latex>{`\\( b \\)`}</Latex> is the position of the center of the peak,{" "}
-            <Latex>{`\\( c \\)`}</Latex> (the standard deviation) controls the width of the "bell." {" "}
-            <RadixLink
-              href="https://en.wikipedia.org/wiki/Wave_packet"
-              target="_blank"
-            >
-              [Wikipedia]
-            </RadixLink>
+            <Latex>{`\\( c \\)`}</Latex> (the standard deviation) controls the width of the "bell."
           </Text>
-
+          <br />
           <Text as="p" size='3'>
-              Gaussian wave packets are described by wave functions{" "}
+              Gaussian wave packets are described by {" "}
+              <HoverCard.Root>
+                <HoverCard.Trigger>
+                  <RadixLink href="https://en.wikipedia.org/wiki/Wave_function" target="_blank">wave functions</RadixLink>
+                </HoverCard.Trigger>
+                <HoverCard.Content size="2" maxWidth="280px">
+                  <Text as="div" size="2" trim="both">
+                    <Strong>Wave functions/wavefunctions</Strong> are a mathematical 
+                    description of the quantum state of a particle, like an electron. 
+                    In quantum mechanics, particles don't have precise positions and 
+                    velocities like they do in classical physics. Instead, a 
+                    wavefunction tells us the probabilities of where a particle might
+                    be found. <RadixLink href="https://en.wikipedia.org/wiki/Wave_function" target="_blank">[Wikipedia]</RadixLink>
+
+                  </Text>
+                </HoverCard.Content>
+              </HoverCard.Root> {" "}
+              
               <Latex>{`\\( \\Psi(\\mathbf{r}, t) \\)`}</Latex>, are localized in
               both position and momentum, and are used to describe QM scenarios
-              where particles do not have well-defined positions or momenta.
+              where particles do not have well-defined positions or momenta. We 
+              also use Gaussian wave packets because they:
           </Text>
           <Flex direction={'column'}>
           <Text as='li' size='3' style={{display: 'list-item', listStyle: 'disc', listStylePosition: "inside",}}>

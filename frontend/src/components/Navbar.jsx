@@ -69,7 +69,6 @@ const Navbar = () => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Indicator className="NavigationMenuIndicator">
-          <div className="Arrow" />
         </NavigationMenu.Indicator>
       </NavigationMenu.List>
 

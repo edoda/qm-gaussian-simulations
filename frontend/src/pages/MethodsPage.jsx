@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
-import { Container, Box, Text, Heading, Card, Section, Flex } from "@radix-ui/themes";
+import { Container, Box, Text, Heading, Card, Section, Flex, Separator } from "@radix-ui/themes";
+import { CaretDownIcon } from "@radix-ui/react-icons";
 
 const Methods = () => {
 
@@ -19,57 +20,60 @@ const Methods = () => {
           marginLeft: 10,
           marginRight: 10,
         }}>
-      <Section className="content">
+      <Section className="content" py='6'>
         <Heading as='h2'>Methods</Heading>
         <Text as='p' size='3'>A detailed explanation of the mathematics behind this simulation.</Text>
       </Section>
-      <Card className="EqnContent">
-        <Flex direction={{ initial: 'column', md: 'row' }} style={{justifyContent: 'space-between'}}>
-        <Box className="EqnSection">
-          <Box className="Eqn">
-            <Heading as='h3' size='5'>Hamiltonian operator</Heading>
-            <Text as='p' size='3'>
-              <Latex>{`\\( \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\)`}</Latex>
-            </Text>
+      <Separator orientation="horizontal" size="4" />
+      <Section className="content" py='6'>
+        <Card className="EqnContent">
+          <Flex direction={{ initial: 'column', md: 'row' }} style={{justifyContent: 'space-between'}}>
+          <Box className="EqnSection">
+            <Box className="Eqn">
+              <Heading as='h3' size='4'>Hamiltonian operator</Heading>
+              <Text as='p' size='3'>
+                <Latex>{`\\( \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\)`}</Latex>
+              </Text>
+            </Box>
+            <Box className="Eqn">
+              <Heading as='h3' size='4'>Time-dependent Schrödinger Equation</Heading>
+              <Text as='p' size='3'>
+                <Latex>{`\\( i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) \\)`}</Latex>
+              </Text>
+            </Box>
+            <Box className="Eqn">
+              <Heading as='h3' size='4'>General solution to time-dependent Schrödinger equation</Heading>
+              <Text as='p' size='3'>
+                <Latex>{`\\( \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk \\)`}</Latex>
+              </Text>
+            </Box>
           </Box>
-          <Box className="Eqn">
-            <Heading as='h3' size='5'>Time-dependent Schrödinger Equation</Heading>
-            <Text as='p' size='3'>
-              <Latex>{`\\( i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) \\)`}</Latex>
-            </Text>
+          <Box className="EqnSection">
+            <Flex as='ul' direction='column'>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( \\hbar \\)`}</Latex> is Planck’s constant
+              </Text>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( m \\)`}</Latex> is the mass of the particle
+              </Text>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( V(\\mathbf{r}, t) \\)`}</Latex> is the potential energy
+              </Text>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( \\Psi(\\mathbf{r},t) \\)`}</Latex> is a time-dependent wave function
+              </Text>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( \\hat H \\)`}</Latex> is the Hamiltonian operator
+              </Text>
+              <Text as='li' size='3' className="EqnBullet">
+                <Latex>{`\\( \\nabla^2 \\)`}</Latex> is the Laplacian operator
+              </Text>
+            </Flex>
           </Box>
-          <Box className="Eqn">
-            <Heading as='h3' size='5'>General solution to time-dependent Schrödinger equation</Heading>
-            <Text as='p' size='3'>
-              <Latex>{`\\( \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk \\)`}</Latex>
-            </Text>
-          </Box>
-        </Box>
-        <Box className="EqnSection">
-          <Flex as='ul' direction='column'>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( \\hbar \\)`}</Latex> is Planck’s constant
-            </Text>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( m \\)`}</Latex> is the mass of the particle
-            </Text>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( V(\\mathbf{r}, t) \\)`}</Latex> is the potential energy
-            </Text>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( \\Psi(\\mathbf{r},t) \\)`}</Latex> is a time-dependent wave function
-            </Text>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( \\hat H \\)`}</Latex> is the Hamiltonian operator
-            </Text>
-            <Text as='li' size='3' className="EqnBullet">
-              <Latex>{`\\( \\nabla^2 \\)`}</Latex> is the Laplacian operator
-            </Text>
           </Flex>
-        </Box>
-        </Flex>
-      </Card>
-      <Section className="content">
+        </Card>
+      </Section>
+      <Section className="content" py='6'>
         <Text size="3">
           In quantum mechanics, we use the time-dependent Schrödinger equation{" "}
           <Latex>{`$$ i \\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</Latex>
@@ -146,14 +150,14 @@ const Methods = () => {
         </Text>
       </Section>
 
-      <Collapsible.Root className="CollapsibleRoot">
+      <Collapsible.Root className="CollapsibleRoot" >
         <Collapsible.Trigger asChild>
           <Text size='5' style={{ cursor: "pointer" }} weight='bold'>
-            Aside on Discretization and Types of Numerical Methods
+            Aside on Discretization and Types of Numerical Methods  <CaretDownIcon className="CaretDown" aria-hidden />
           </Text>
         </Collapsible.Trigger>
 
-        <Collapsible.Content style={{ marginTop: "1em"}}>
+        <Collapsible.Content className='CollapsibleContent' style={{ marginTop: "1em"}}>
             <Text size='3'>
               To numerically solve our PDE, we have to use a method that
               approximates the spatial derivatives in the Laplacian. There are
@@ -229,7 +233,7 @@ const Methods = () => {
         </Collapsible.Content>
       </Collapsible.Root>
 
-      <Section className="content" style={{ marginTop: 0 }}>
+      <Section className="content" style={{ marginTop: 0 }} py='6'>
         <Text size="3">
           In the case of our Schrodinger equation, we are working in one
           dimension and are applying the Laplacian operator to our wavefunctions,
@@ -241,7 +245,7 @@ const Methods = () => {
         </Text>
       </Section>
 
-      <Section className="content">
+      <Section className="content" py='6'>
         <Text size="3">(add references/sources here)</Text>
       </Section>
 
