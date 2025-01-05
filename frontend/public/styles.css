@@ -116,7 +116,6 @@ h1, h2, h3 {
   box-shadow: var(--shadow-7);
 }
 
-/* navbar */
 .NavigationMenuRoot {
   position: sticky;
   top: 0;
@@ -166,7 +165,6 @@ h1, h2, h3 {
   color: var(--accent-1);
 }
 
-/* dropdown caret icon */
 .CaretDown {
   margin-left: 2px;
   transition: transform 250ms ease;
@@ -187,7 +185,6 @@ h1, h2, h3 {
   animation-timing-function: ease;
 }
 
-/* viewport for submenus (required by Radix-UI) */
 .ViewportPosition {
   position: absolute;
   display: flex;
@@ -198,6 +195,7 @@ h1, h2, h3 {
   left: 0;
   perspective: 2000px;
 }
+
 .NavigationMenuViewport {
   position: relative;
   transform-origin: top center;
@@ -210,14 +208,12 @@ h1, h2, h3 {
   transition: width, height, 300ms ease;
 }
 
-/* submenu layout */
 .List {
   list-style: none;
   margin: 0;
   padding: 8px;
 }
 
-/* submenu links */
 .ListItemLink {
   display: block;
   text-decoration: none;
@@ -232,7 +228,6 @@ h1, h2, h3 {
   background-color: var(--accent-4);
 }
 
-/* headings and text inside dropdown items (optional) */
 .ListItemHeading {
   font-weight: bold;
   margin-bottom: 3px;
@@ -243,7 +238,6 @@ h1, h2, h3 {
   font-size: 14px;
 }
 
-/* Animations for opening/closing the menu */
 .NavigationMenuContent[data-motion="from-start"] {
   animation-name: enterFromLeft;
 }
@@ -340,14 +334,12 @@ h1, h2, h3 {
   }
 }
 
-/* Media query for desktop (optional) */
 @media (min-width: 600px) {
   .NavigationMenuViewport {
     width: var(--radix-navigation-menu-viewport-width);
   }
 }
 
-/* collapsible divs */
 .CollapsibleRoot {
   background-color: var(--accent-2);
   width: 100%;
@@ -385,14 +377,12 @@ h1, h2, h3 {
 	}
 }
 
-/* plotly div */
 .PlotlyDiv {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-/* Sliders */
 .SliderRoot {
 	position: relative;
 	display: flex;
