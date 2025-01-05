@@ -6,6 +6,7 @@ import Home from "./pages/HomePage";
 import About from "./pages/AboutPage";
 import Methods from "./pages/MethodsPage";
 import Navbar from "./components/Navbar";
+import "@radix-ui/themes/styles.css";
 
 const App = () => {
   return (

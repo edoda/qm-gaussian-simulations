@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
@@ -19,12 +18,13 @@ const Methods = () => {
           marginBottom: 10,
           marginLeft: 10,
           marginRight: 10,
-        }}>
-      <Section className="content" py='6'>
-        <Heading as='h2'>Methods</Heading>
-        <Text as='p' size='3'>A detailed explanation of the mathematics behind this simulation.</Text>
-      </Section>
-      <Separator orientation="horizontal" size="4" />
+      }}>
+        <Flex gap='4' direction='column'>
+          <Box>
+            <Heading as="h2">Methods</Heading>
+            <Text as='p' size="3">A detailed explanation of the mathematics behind this simulation.</Text>
+          </Box>
+        </Flex>
       <Section className="content" py='6'>
         <Card className="EqnContent">
           <Flex direction={{ initial: 'column', md: 'row' }} style={{justifyContent: 'space-between'}}>

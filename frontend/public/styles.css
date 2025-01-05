@@ -108,7 +108,7 @@ h1, h2, h3 {
 .ButtonContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-self: center;
     gap: 10px;
 }
 
@@ -218,7 +218,6 @@ p {
   background-color: var(--accent-1);
   border-radius: var(--radius-3);
   border: 2px solid var(--accent-11);
-
   overflow: hidden;
   box-shadow: var(--shadow-3);
   height: var(--radix-navigation-menu-viewport-height);

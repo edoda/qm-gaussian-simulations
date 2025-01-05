@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
 import {
@@ -34,7 +33,7 @@ const Home = () => {
         className="AboutContainer"
         columns={{ initial: "1fr", md: "1fr 1fr" }}
       >
-        <Section className="GridSection">
+        <Box className="GridSection">
           <Heading as="h3" size="5" weight="bold">
             Wave Packets in Brief
           </Heading>
@@ -58,8 +57,8 @@ const Home = () => {
               </Text>
             </Flex>
           </Section>
-        </Section>
-        <Section className="GridSection">
+        </Box>
+        <Box className="GridSection">
           <Heading as="h3" size="5" weight="bold">
             Characteristics of Wave Packets
           </Heading>
@@ -90,7 +89,7 @@ const Home = () => {
               </Box>
             </Flex>
           </Section>
-        </Section>
+        </Box>
       </Grid>
 
 

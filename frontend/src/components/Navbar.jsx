@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { CaretDownIcon } from "@radix-ui/react-icons";
-import "../../public/styles.css";
 import { Box, Flex, Text } from "@radix-ui/themes";
 
 const Navbar = () => {
@@ -21,7 +20,7 @@ const Navbar = () => {
             Simulations <CaretDownIcon className="CaretDown" aria-hidden />
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="NavigationMenuContent">
-            <Flex direction='column' className="List one">
+            <Flex direction='column'>
               <Box as='li'>
                 <NavigationMenu.Link asChild>
                   <Link to="/rectangular-barrier" className="ListItemLink">

@@ -12,7 +12,6 @@ import {
   Callout,
   Badge,
   Separator,
-  Grid,
 } from "@radix-ui/themes";
 import * as Slider from "@radix-ui/react-slider";
 import { CaretDownIcon, InfoCircledIcon } from "@radix-ui/react-icons";
@@ -34,7 +33,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
   const [result, setResult] = useState(null);
   const intervalRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
-  let step = 0;
+  const stepRef = useRef(0);
 
   const handleParameterChange = (key, value) => {
     setParameters((prev) => ({ ...prev, [key]: value }));
@@ -112,6 +111,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
   }, [simulationData, title]);
 
   useEffect(() => {
+    // Cleanup on unmount
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -128,21 +128,34 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
   };
 
   const startAnimation = () => {
-    if(isPaused) {
+    if (isPaused) {
       setIsPaused(false);
     } else {
-      step = 0;
+      stepRef.current = 0;
     }
 
-    let step = 0;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
     intervalRef.current = setInterval(() => {
+      const step = stepRef.current;
+
       if (simulationData && step < simulationData.length) {
-        const frame = simulationData[step++];
+        const frame = simulationData[step];
+        stepRef.current = step + 1;
+
         Plotly.update("plotly-div", {
-          y: [frame.psi_real, frame.psi_imag, frame.potential, frame.probability],
+          y: [
+            frame.psi_real,
+            frame.psi_imag,
+            frame.potential,
+            frame.probability,
+          ],
         });
       } else {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     }, 50);
   };
@@ -152,13 +165,17 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-    step = 0;
+    stepRef.current = 0;
     setIsPaused(false);
-   
     if (simulationData) {
       const initialFrame = simulationData[0];
       Plotly.update("plotly-div", {
-        y: [initialFrame.psi_real, initialFrame.psi_imag, initialFrame.potential, initialFrame.probability],
+        y: [
+          initialFrame.psi_real,
+          initialFrame.psi_imag,
+          initialFrame.potential,
+          initialFrame.probability,
+        ],
       });
     }
   };
