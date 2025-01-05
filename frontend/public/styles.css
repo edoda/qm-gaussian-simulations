@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
-@import "@radix-ui/themes/styles";
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('@radix-ui/themes/styles');
 
 html {
     -ms-overflow-style: none;  /* IE and Edge */
@@ -18,11 +18,11 @@ body {
 }
 
 h1, h2, h3 {
- padding-bottom: .5rem;
+ padding-bottom: 0.5em;
 }
 
 .AboutContainer {
-  padding: 1.5rem;
+  padding: 1.5em;
   box-sizing: border-box;
   background-color: var(--accent-2);
   box-shadow: var(--shadow-2);
@@ -31,7 +31,7 @@ h1, h2, h3 {
   color: var(--accent-12); 
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 1rem;
+  grid-gap: 1em;
   align-content: center;
   justify-content: center;
   margin-left: 10px;
@@ -45,7 +45,7 @@ h1, h2, h3 {
 }
 
 .GridSection {
-  padding: .5rem;
+  padding: 0.5em;
   box-sizing: border-box;
   text-align: left;
   word-wrap: break-word;
@@ -55,7 +55,7 @@ h1, h2, h3 {
 
 .AboutContainerVariant {
   width: 100%;
-  padding: 2rem;
+  padding: 2em;
   box-sizing: border-box;
   align-content: center;
   background-color: var(--accent-1);
@@ -82,7 +82,7 @@ h1, h2, h3 {
 .EqnContent {
   border: 2px solid var(--accent-10);
   box-shadow: var(--shadow-5);
-  padding: 2rem;
+  padding: 2em;
   background-color: var(--accent-2);
 }
 
@@ -91,38 +91,32 @@ h1, h2, h3 {
 }
 
 .Eqn {
-  padding-bottom: .5rem;
+  padding-bottom: 0.5em;
 }
 
 .EqnBullet {
-  padding-bottom: .5rem;
+  padding-bottom: 0.5em;
   display: list-item;
   list-style: disc;
 }
 
 .Eqn li,
 .EqnBullet li {
-  margin-top: 2rem;
+  margin-top: 2em;
 }
 
 .ButtonContainer {
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 10px;
 }
 
 .CustomButton {
-    box-shadow: var(--shadow-7);
-    /* width: 100%; */
+  box-shadow: var(--shadow-7);
 }
 
 /* navbar */
-button,
-p {
-  all: unset;
-}
-
 .NavigationMenuRoot {
   position: sticky;
   top: 0;
@@ -150,8 +144,8 @@ p {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  padding: .5em;
-  margin: .5em;
+  padding: 0.5em;
+  margin: 0.5em;
   cursor: pointer;
   text-decoration: none;
   border-radius: var(--radius-3);
@@ -160,20 +154,15 @@ p {
   font-weight: bold;
 }
 
-/* Focus Outline */
 .NavigationMenuTrigger:focus,
 .NavigationMenuLink:focus {
   outline: 2px solid var(--accent-11);
   outline-offset: 2px;
-  height: 100%;
-
 }
 
-/* Hover State */
 .NavigationMenuTrigger:hover,
 .NavigationMenuLink:hover {
   background-color: var(--accent-9);
-  height: 100%;
   color: var(--accent-1);
 }
 
@@ -204,9 +193,8 @@ p {
   position: absolute;
   display: flex;
   justify-content: center;
-  width: 100%;
-  padding-right: .5em;
-  padding-left: .5em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
   top: 100%;
   left: 0;
   perspective: 2000px;
@@ -214,7 +202,6 @@ p {
 .NavigationMenuViewport {
   position: relative;
   transform-origin: top center;
-  width: 100%;
   background-color: var(--accent-1);
   border-radius: var(--radius-3);
   border: 2px solid var(--accent-11);
@@ -371,14 +358,6 @@ p {
   padding: 1em;
 }
 
-.CollapsibleRootVariant {
-  background-color: var(--accent-2);
-  box-shadow: var(--shadow-3);
-  border-radius: var(--radius-3);
-  border: 2px solid var(--accent-11);
-  padding: 1em;
-}
-
 .CollapsibleContent {
 	overflow: hidden;
 }
@@ -409,9 +388,6 @@ p {
 
 /* plotly div */
 .PlotlyDiv {
-  /* box-shadow: var(--shadow-3); */
-  /* border-radius: var(--radius-3);
-  border: 2px solid var(--accent-11); */
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -456,4 +432,10 @@ p {
 .SliderThumb:focus {
 	outline: none;
 	box-shadow: 0 0 0 3px var(--gray-6);
+}
+
+.ParameterFlex {
+  justify-items: center;
+  align-self: center;
+  flex-wrap: wrap;
 }

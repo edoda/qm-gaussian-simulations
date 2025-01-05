@@ -24,6 +24,7 @@ const Methods = () => {
             <Heading as="h2">Methods</Heading>
             <Text as='p' size="3">A detailed explanation of the mathematics behind this simulation.</Text>
           </Box>
+          <Separator orientation="horizontal" size="4" />
         </Flex>
       <Section className="content" py='6'>
         <Card className="EqnContent">

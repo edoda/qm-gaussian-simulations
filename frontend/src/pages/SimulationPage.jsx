@@ -224,7 +224,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
 
       <Section py='6'>
         <Container>
-        <Collapsible.Root defaultOpen className="CollapsibleRootVariant">
+        <Collapsible.Root defaultOpen className="CollapsibleRoot">
           <Collapsible.Trigger asChild>
             <Text size='3' style={{ cursor: "pointer" }} weight='bold'>
               {title} Parameters <CaretDownIcon className="CaretDown" aria-hidden />
@@ -244,7 +244,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
               </Callout.Root>
             </Section>
             <Flex direction='column' gap='5'>
-              <Flex gap='1em' style={{justifyItems: 'center', alignSelf: 'center', flexWrap: 'wrap'}}  width={{ initial: 'auto', sm: 'auto', md: 'auto' }}>
+              <Flex gap='1em' className="ParameterFlex" width={{ initial: 'auto', sm: 'auto', md: 'auto' }}>
               {defaultParameters.map((param) => (
                 <Box key={param.name}  width={{initial: '100%', sm: 'auto', md: 'auto'}} style={{ alignContent: 'center'}}>
                   <Text size="3" as="p" align='left' style={{ paddingBottom: '1em'}}>
