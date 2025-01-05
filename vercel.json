@@ -12,5 +12,19 @@
         "distDir": "build"
       }
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/app.py"
+    },
+    {
+      "src": "^/(.*)\\.(js|css|png|jpg|gif|svg|woff2|woff|ttf)$",
+      "dest": "/build/$1.$2"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/build/index.html"
+    }
   ]
 }
