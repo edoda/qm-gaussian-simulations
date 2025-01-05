@@ -26,7 +26,7 @@ const Methods = () => {
           </Box>
           <Separator orientation="horizontal" size="4" />
         </Flex>
-      <Section className="content" py='6'>
+      <Section py='6'>
         <Card className="EqnContent">
           <Flex direction={{ initial: 'column', md: 'row' }} style={{justifyContent: 'space-between'}}>
           <Box className="EqnSection">
@@ -74,7 +74,7 @@ const Methods = () => {
           </Flex>
         </Card>
       </Section>
-      <Section className="content" py='6'>
+      <Section py='6'>
         <Text size="3">
           In quantum mechanics, we use the time-dependent Schrödinger equation{" "}
           <Latex>{`$$ i \\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</Latex>
@@ -234,7 +234,7 @@ const Methods = () => {
         </Collapsible.Content>
       </Collapsible.Root>
 
-      <Section className="content" style={{ marginTop: 0 }} py='6'>
+      <Section style={{ marginTop: 0 }} py='6'>
         <Text size="3">
           In the case of our Schrodinger equation, we are working in one
           dimension and are applying the Laplacian operator to our wavefunctions,

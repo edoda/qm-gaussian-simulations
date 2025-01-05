@@ -82,8 +82,8 @@ h1, h2, h3 {
 .EqnContent {
   border: 2px solid var(--accent-10);
   box-shadow: var(--shadow-5);
-  padding: 2em;
   background-color: var(--accent-2);
+  padding: 2em;
 }
 
 .EqnSection {
@@ -96,8 +96,6 @@ h1, h2, h3 {
 
 .EqnBullet {
   padding-bottom: 0.5em;
-  display: list-item;
-  list-style: disc;
 }
 
 .Eqn li,
@@ -194,6 +192,7 @@ h1, h2, h3 {
   top: 100%;
   left: 0;
   perspective: 2000px;
+  width: 100%;
 }
 
 .NavigationMenuViewport {
