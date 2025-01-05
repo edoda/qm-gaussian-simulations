@@ -2,8 +2,8 @@
 @import url('@radix-ui/themes/styles');
 
 html {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 html::-webkit-scrollbar {
@@ -175,7 +175,6 @@ h1, h2, h3 {
   transform: rotate(-180deg);
 }
 
-/* dropdown container */
 .NavigationMenuContent {
   top: 100%;
   left: 0;
@@ -188,7 +187,7 @@ h1, h2, h3 {
   animation-timing-function: ease;
 }
 
-/* viewport for submenus (required by radix) */
+/* viewport for submenus (required by Radix-UI) */
 .ViewportPosition {
   position: absolute;
   display: flex;
