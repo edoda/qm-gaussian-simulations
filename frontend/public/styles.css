@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('@radix-ui/themes/styles');
 
 html {
     -ms-overflow-style: none;
@@ -349,6 +348,7 @@ h1, h2, h3 {
 }
 
 .CollapsibleContent {
+  margin-top: 1em;
 	overflow: hidden;
 }
 .CollapsibleContent[data-state="open"] {

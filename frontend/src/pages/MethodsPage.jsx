@@ -92,7 +92,7 @@ const Methods = () => {
           tells us the particle is definitely *somewhere*.
         </Text>
 
-        <Text size="3" style={{ marginTop: "1rem" }}>
+        <Text size="3">
           For the sake of simplicity, we will work in one spatial dimension (<Latex>{`\\(x\\)`}</Latex>),
           so
           <Latex>{`$$\\Psi(\\mathbf{r},t) \\implies \\Psi(x,t)$$`}</Latex>
@@ -106,7 +106,7 @@ const Methods = () => {
           represents a stationary state.
         </Text>
 
-        <Text size="3" style={{ marginTop: "1rem" }}>
+        <Text size="3">
           So typically in quantum mechanics we have some initial condition <Latex>{`\\(\\Psi(x,0)\\)`}</Latex>{" "}
           and need to find <Latex>{`\\(\\Psi(x,t)\\)`}</Latex>. In these simulations, we will
           construct our initial condition to be a normalized (skipping normalization steps)
@@ -153,12 +153,14 @@ const Methods = () => {
 
       <Collapsible.Root className="CollapsibleRoot" >
         <Collapsible.Trigger asChild>
-          <Text size='5' style={{ cursor: "pointer" }} weight='bold'>
+          <div>
+          <Text size='5' weight='bold'>
             Aside on Discretization and Types of Numerical Methods  <CaretDownIcon className="CaretDown" aria-hidden />
           </Text>
+          </div>
         </Collapsible.Trigger>
 
-        <Collapsible.Content className='CollapsibleContent' style={{ marginTop: "1em"}}>
+        <Collapsible.Content className='CollapsibleContent'>
             <Text size='3'>
               To numerically solve our PDE, we have to use a method that
               approximates the spatial derivatives in the Laplacian. There are
@@ -214,7 +216,7 @@ const Methods = () => {
               </li>
             </ul>
 
-            <Heading as='h3' Text size='4'>Crank-Nicholson Approach</Heading>
+            <Heading as='h3' size='4'>Crank-Nicholson Approach</Heading>
             <Text size='3'>
               The Crank-Nicholson method is another widely used approach for
               solving PDEs, including the Schrödinger equation. It is a
