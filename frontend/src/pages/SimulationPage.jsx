@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Plotly from "plotly.js-basic-dist";
+// import Plotly from 'plotly.js-basic-dist-min';
 import {
   Button,
   Container,

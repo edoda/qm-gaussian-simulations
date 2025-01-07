@@ -7,7 +7,7 @@ import "@radix-ui/themes/styles.css";
 //optional? external scripts (Plotly and Pyodide)
 const loadExternalScripts = () => {
   const plotlyScript = document.createElement("script");
-  plotlyScript.src = "https://cdn.plot.ly/plotly-2.27.0.min.js";
+  plotlyScript.src = "https://cdn.plot.ly/plotly-basic-3.0.0-rc.2.min.js";
   plotlyScript.defer = true;
   document.body.appendChild(plotlyScript);
 
