@@ -8,7 +8,7 @@ export default defineConfig({
     filename: 'bundle-visualization.html',
   }),],
   build: {
-    outDir: 'build',
+    outDir: 'build'
   },
   server: {
     proxy: {

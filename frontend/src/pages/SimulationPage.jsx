@@ -13,11 +13,11 @@ import {
   Badge,
   Separator,
 } from "@radix-ui/themes";
-import * as Slider from "@radix-ui/react-slider";
 import { CaretDownIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import * as Collapsible from "@radix-ui/react-collapsible";
+import * as Slider from "@radix-ui/react-slider";
+import { MathJax } from 'better-react-mathjax';
 
-import Latex from "react-latex-next";
 
 const SimulationPage = ({ title, description, simulationType, defaultParameters }) => {
   const simRef = useRef(null);
@@ -108,10 +108,9 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     } else {
       console.log("Plotly initialization skipped...simulationData is null.");
     }
-  }, [simulationData, title]);
+  }, [simulationData]);
 
   useEffect(() => {
-    // Cleanup on unmount
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -183,51 +182,50 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
 
   return (
     <Flex
-      direction="column"
-      style={{
-        height: "100%",
-        marginBottom: 10,
-      }}
-    >
-      <Container className="InfoContainer">
-        <Flex gap='4' direction='column'>
-          <Box>
+    direction="column"
+    style={{
+      height: "100%",
+      marginBottom: 10,
+    }}
+  >
+    <Container className="InfoContainer">
+      <Flex gap='4' direction='column'>
+        <Box>
           <Heading as="h2">{title} Simulation</Heading>
           <Text size="3">{description}</Text>
-          </Box>
+        </Box>
         <Separator orientation="horizontal" size="4" />
-          <Text size="3">
-            The wave function <Latex>{`\\(\\Psi(x, 0)\\)`}</Latex> describes the
-            state of a quantum particle at initial time{" "}
-            <Latex>{`\\(t=0\\)`}</Latex>. In this simulation, the wave function is
-            given by:
-            <Latex>
-              {String.raw`$$\Psi(x, 0)=\frac{e^{i\phi}}{(2\pi\sigma^2)^{1/4}} e^{-\frac{(x-\mu)^2}{4\sigma^2}},$$`}
-            </Latex>
-            <Latex>{`\\(\\phi\\)`}</Latex> represents some arbitrary real
-            phase-angle. {" "}
-            <Latex>{`\\(\\sigma\\)`}</Latex> represents the standard deviation,
-            which determines the spread or width of the curve. {" "}
-            <Latex>{`\\(\\mu\\)`}</Latex> represents mean or the central position of
-            the wave packet, indicating where the wave packet is centered along
-            the x-axis at <Latex>{`\\(t=0\\)`}</Latex>. {" "}
-            Lastly, the exponential term is the Gaussian that shapes the
-            amplitude of the wave packet, ensuring it is normally distributed
-            around the mean <Latex>{`\\(\\mu\\)`}</Latex>.
-          </Text>
-          </Flex>
+        <Text size="3">
+          The wave function <MathJax inline>{'\\(\\Psi(x, 0)\\)'}</MathJax> describes the
+          state of a quantum particle at initial time <MathJax inline>{'\\(t=0\\)'}</MathJax>. In this simulation, the wave function is
+          given by:
+        </Text>
+        <MathJax>
+        {`$$
+            \\Psi(x, 0) = \\frac{e^{i\\phi}}{(2\\pi\\sigma^2)^{1/4}} e^{-\\frac{(x-\\mu)^2}{4\\sigma^2}}
+          $$`}
+        </MathJax>
+        <Text size="3">
+          where <MathJax inline>{'\\(\\phi\\)'}</MathJax> represents some arbitrary real
+          phase-angle. <MathJax inline>{'\\(\\sigma\\)'}</MathJax> represents the standard deviation,
+          which determines the spread or width of the curve. <MathJax inline>{'\\(\\mu\\)'}</MathJax> represents the mean or the central position of
+          the wave packet, indicating where the wave packet is centered along
+          the x-axis at <MathJax inline>{'\\(t=0\\)'}</MathJax>. Lastly, the exponential term is the Gaussian that shapes the
+          amplitude of the wave packet, ensuring it is normally distributed
+          around the mean <MathJax inline>{'\\(\\mu\\)'}</MathJax>.
+        </Text>
+      </Flex>
 
-        <Section py='6'>
-          <Container>
+      <Section py='6'>
+        <Container>
           <Collapsible.Root defaultOpen className="CollapsibleRoot">
             <Collapsible.Trigger asChild>
               <Text size='3' style={{ cursor: "pointer" }} weight='bold'>
                 {title} Parameters <CaretDownIcon className="CaretDown" aria-hidden />
               </Text>
             </Collapsible.Trigger>
-    
-            <Collapsible.Content className="CollapsibleContent" style={{ marginTop: "1em", marginBottom: '1em'}}>
-            <Section p='0' style={{paddingBottom: '1em'}}>
+            <Collapsible.Content className="CollapsibleContent" style={{ marginTop: "1em", marginBottom: '1em' }}>
+              <Section p='0' style={{ paddingBottom: '1em' }}>
                 <Callout.Root color="gold">
                   <Callout.Icon>
                     <InfoCircledIcon />
@@ -240,41 +238,41 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
               </Section>
               <Flex direction='column' gap='5'>
                 <Flex gap='1em' className="ParameterFlex" width={{ initial: 'auto', sm: 'auto', md: 'auto' }}>
-                {defaultParameters.map((param) => (
-                  <Box key={param.name}  width={{initial: '100%', sm: 'auto', md: 'auto'}} style={{ alignContent: 'center'}}>
-                    <Text size="3" as="p" align='left' style={{ paddingBottom: '1em'}}>
-                      {param.label}:
-                    </Text>
-                    <Slider.Root
-                      size='3'
-                      variant='surface'
-                      className="SliderRoot"
-                      onValueChange={(value) => handleParameterChange(param.name, value[0] || param.default)}
-                      defaultValue={[param.default]}
-                      min={param.min}
-                      max={param.max}
-                      step={param.step}
-                    >
-                      <Slider.Track className="SliderTrack">
-                        <Slider.Range className="SliderRange" />
-                      </Slider.Track>
-                      <Slider.Thumb className="SliderThumb" aria-label={param.label} />
-                    </Slider.Root>
-                    <Flex direction="row" gap='2' style={{ width: '100%', marginTop: 5,  }}>
-                      <Badge variant='soft' size='2'>
-                        Min: {param.min}
-                      </Badge>
-                      <Badge variant="soft" size='2'>
-                        Max: {param.max}
-                      </Badge>
-                      <Badge variant="soft" size='2'>
-                        Current: {currentValues[param.name]}
-                      </Badge>
-                    </Flex>
-                  </Box>
-                ))}
+                  {defaultParameters.map((param) => (
+                    <Box key={param.name} width={{ initial: '100%', sm: 'auto', md: 'auto' }} style={{ alignContent: 'center' }}>
+                      <Text size="3" as="p" align='left' style={{ paddingBottom: '1em' }}>
+                        {param.label}:
+                      </Text>
+                      <Slider.Root
+                        size='3'
+                        variant='surface'
+                        className="SliderRoot"
+                        onValueChange={(value) => handleParameterChange(param.name, value[0] || param.default)}
+                        defaultValue={[param.default]}
+                        min={param.min}
+                        max={param.max}
+                        step={param.step}
+                      >
+                        <Slider.Track className="SliderTrack">
+                          <Slider.Range className="SliderRange" />
+                        </Slider.Track>
+                        <Slider.Thumb className="SliderThumb" aria-label={param.label} />
+                      </Slider.Root>
+                      <Flex direction="row" gap='2' style={{ width: '100%', marginTop: 5 }}>
+                        <Badge variant='soft' size='2'>
+                          Min: {param.min}
+                        </Badge>
+                        <Badge variant="soft" size='2'>
+                          Max: {param.max}
+                        </Badge>
+                        <Badge variant="soft" size='2'>
+                          Current: {currentValues[param.name]}
+                        </Badge>
+                      </Flex>
+                    </Box>
+                  ))}
                 </Flex>
-                <Flex style={{flexWrap: 'wrap'}} className="ButtonContainer">
+                <Flex style={{ flexWrap: 'wrap' }} className="ButtonContainer">
                   <Button
                     size="3"
                     width='100%'
@@ -306,11 +304,11 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
                   </Button>
                   <Button
                     variant="solid"
-                    width="100%"
+                    width='100%'
                     size="3"
                     className="CustomButton"
                     onClick={pauseAnimation}
-                    disabled={!simulationData || isLoading }
+                    disabled={!simulationData || isLoading}
                   >
                     Pause Animation
                   </Button>
@@ -328,31 +326,30 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
               </Flex>
             </Collapsible.Content>
           </Collapsible.Root>
-          </Container>
-        </Section>
-        {result && <Box><Text>Simulation Result: {result}</Text></Box>}
-      </Container>
+        </Container>
+      </Section>
+      {result && <Box><Text>Simulation Result: {result}</Text></Box>}
+    </Container>
 
+    <Box>
+      {isLoading ? (
+        <Flex
+          direction="column"
+          align="center"
+          justify="center"
+          style={{ padding: 30 }}
+        >
+          <Spinner size="5" />
+          <Text size="4">Loading simulation data...</Text>
+        </Flex>
+      ) : simulationData ? (
+        <Box className="PlotlyDiv">
+          <Box id="plotly-div" ref={simRef} />
+        </Box>
+      ) : null}
+    </Box>
 
-      <Box>
-        {isLoading ? (
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            style={{ padding: 30 }}
-          >
-            <Spinner size="5" />
-            <Text size="4">Loading simulation data...</Text>
-          </Flex>
-        ) : simulationData ? (
-          <Box className="PlotlyDiv">
-            <Box id="plotly-div" ref={simRef} />
-          </Box>
-        ) : null}
-      </Box>
-
-    </Flex>
+  </Flex>
   );
 };
 

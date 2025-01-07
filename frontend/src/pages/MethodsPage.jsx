@@ -1,8 +1,8 @@
 import React from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import Latex from "react-latex-next";
 import { Container, Box, Text, Heading, Flex, Separator } from "@radix-ui/themes";
 import { CaretDownIcon } from "@radix-ui/react-icons";
+import { MathJax } from 'better-react-mathjax';
 
 const Methods = () => {
 
@@ -22,19 +22,19 @@ const Methods = () => {
             <Box className="Eqn">
               <Heading as='h3' size='4'>Hamiltonian operator</Heading>
               <Text as='p' size='3'>
-                <Latex>{`\\( \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\)`}</Latex>
+                <MathJax>{`$$ \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) $$`}</MathJax>
               </Text>
             </Box>
             <Box className="Eqn">
               <Heading as='h3' size='4'>Time-dependent Schrödinger Equation</Heading>
               <Text as='p' size='3'>
-                <Latex>{`\\( i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) \\)`}</Latex>
+                <MathJax>{`$$ i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</MathJax>
               </Text>
             </Box>
             <Box className="Eqn">
               <Heading as='h3' size='4'>General solution to time-dependent Schrödinger equation</Heading>
               <Text as='p' size='3'>
-                <Latex>{`\\( \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk \\)`}</Latex>
+                <MathJax>{`$$ \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk $$`}</MathJax>
               </Text>
             </Box>
           </Flex>
@@ -42,22 +42,22 @@ const Methods = () => {
             <Flex gap='1' direction='column' asChild>
             <ul>
               <li>
-                <Latex>{`\\( \\hbar \\)`}</Latex> is Planck’s constant
+                <MathJax inline>{`\\( \\hbar \\)`}</MathJax> is Planck’s constant
               </li>
               <li>
-                <Latex>{`\\( m \\)`}</Latex> is the mass of the particle
+                <MathJax inline>{`\\( m \\)`}</MathJax> is the mass of the particle
               </li>
               <li>
-                <Latex>{`\\( V(\\mathbf{r}, t) \\)`}</Latex> is the potential energy
+                <MathJax inline>{`\\( V(\\mathbf{r}, t) \\)`}</MathJax> is the potential energy
               </li>
               <li>
-                <Latex>{`\\( \\Psi(\\mathbf{r},t) \\)`}</Latex> is a time-dependent wave function
+                <MathJax inline>{`\\( \\Psi(\\mathbf{r},t) \\)`}</MathJax> is a time-dependent wave function
               </li>
               <li>
-                <Latex>{`\\( \\hat H \\)`}</Latex> is the Hamiltonian operator
+                <MathJax inline>{`\\( \\hat H \\)`}</MathJax> is the Hamiltonian operator
               </li>
               <li>
-                <Latex>{`\\( \\nabla^2 \\)`}</Latex> is the Laplacian operator
+                <MathJax inline>{`\\( \\nabla^2 \\)`}</MathJax> is the Laplacian operator
               </li>
               </ul>
             </Flex>
@@ -67,70 +67,70 @@ const Methods = () => {
         <Flex direction='column' gap='3'>
         <Text size="3">
           In quantum mechanics, we use the time-dependent Schrödinger equation{" "}
-          <Latex>{`$$ i \\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</Latex>
+          <MathJax>{`$$ i \\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</MathJax>
           {" "}
           to analyze the time evolution of a wave function{" "}
-          <Latex>{`\\( \\Psi(\\mathbf{r},t) \\)`}</Latex>.{" "}
-          <Latex>{`\\(|\\Psi(\\mathbf{r},t)|^2\\)`}</Latex> is the probability density of the
+          <MathJax inline>{`\\( \\Psi(\\mathbf{r},t) \\)`}</MathJax>.{" "}
+          <MathJax inline>{`\\(|\\Psi(\\mathbf{r},t)|^2\\)`}</MathJax> is the probability density of the
           particle's position, and{" "}
-          <Latex>{`\\( \\int_{a}^{b} |\\Psi(\\mathbf{r},t)|^2 dx\\)`}</Latex> is equal to the probability
-          of observing a particle between <Latex>{`\\((a, b)\\)`}</Latex> at some time{" "}
-          <Latex>{`\\(t\\)`}</Latex>; in other words, we can see how a quantum state of a particle
+          <MathJax inline>{`\\( \\int_{a}^{b} |\\Psi(\\mathbf{r},t)|^2 dx\\)`}</MathJax> is equal to the probability
+          of observing a particle between <MathJax inline>{`\\((a, b)\\)`}</MathJax> at some time{" "}
+          <MathJax inline>{`\\(t\\)`}</MathJax>; in other words, we can see how a quantum state of a particle
           should change in time in response to its environment and some applied potential. We also
           have a normalization condition{" "}
-          <Latex>{`\\(\\int_{-\\infty}^{\\infty} |\\Psi(\\mathbf{r},t)|^2 dx = 1\\)`}</Latex> which
+          <MathJax inline>{`\\(\\int_{-\\infty}^{\\infty} |\\Psi(\\mathbf{r},t)|^2 dx = 1\\)`}</MathJax> which
           tells us the particle is definitely *somewhere*.
         </Text>
 
         <Text size="3">
-          For the sake of simplicity, we will work in one spatial dimension (<Latex>{`\\(x\\)`}</Latex>),
+          For the sake of simplicity, we will work in one spatial dimension (<MathJax inline>{`\\(x\\)`}</MathJax>),
           so
-          <Latex>{`$$\\Psi(\\mathbf{r},t) \\implies \\Psi(x,t)$$`}</Latex>
+          <MathJax>{`$$ \\Psi(\\mathbf{r},t) \\implies \\Psi(x,t) $$`}</MathJax>
           {" "} 
-          <Latex>{`$$\\hat H = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\implies \\hat H =  -\\frac{\\hbar^2}{2m}\\frac{d^2}{dx^2} + V(x,t),$$`}</Latex>
-          and <Latex>{`\\( \\Psi(x,t) \\)`}</Latex>, our general solution to the time-dependent
-          Schrödinger equation becomes the integral over the continuous variable <Latex>{`\\(k\\)`}</Latex> for each stationary state <Latex>{`\\(\\Psi_k\\)`}</Latex>:
-          <Latex>{`$$ \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t) dk $$`}</Latex>{" "}
+          <MathJax>{`$$\\hat H = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\implies \\hat H =  -\\frac{\\hbar^2}{2m}\\frac{d^2}{dx^2} + V(x,t),$$`}</MathJax>
+          and <MathJax inline>{`\\( \\Psi(x,t) \\)`}</MathJax>, our general solution to the time-dependent
+          Schrödinger equation becomes the integral over the continuous variable <MathJax inline>{`\\(k\\)`}</MathJax> for each stationary state <MathJax>{`\\(\\Psi_k\\)`}</MathJax>:
+          <MathJax>{`$$ \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t) dk $$`}</MathJax>{" "}
           where
-          <Latex>{`$$ \\Psi_{k}(x,t) = e^{i(kx-\\frac{\\hbar k^2}{2m}t)} = e^{i(kx-\\frac{E_{k}}{\\hbar}t)} $$`}</Latex>{" "}
+          <MathJax>{`$$ \\Psi_{k}(x,t) = e^{i(kx-\\frac{\\hbar k^2}{2m}t)} = e^{i(kx-\\frac{E_{k}}{\\hbar}t)} $$`}</MathJax>{" "}
           represents a stationary state.
         </Text>
 
         <Text size="3">
-          So typically in quantum mechanics we have some initial condition <Latex>{`\\(\\Psi(x,0)\\)`}</Latex>{" "}
-          and need to find <Latex>{`\\(\\Psi(x,t)\\)`}</Latex>. In these simulations, we will
+          So typically in quantum mechanics we have some initial condition <MathJax inline>{`\\(\\Psi(x,0)\\)`}</MathJax>{" "}
+          and need to find <MathJax inline>{`\\(\\Psi(x,t)\\)`}</MathJax>. In these simulations, we will
           construct our initial condition to be a normalized (skipping normalization steps)
-          wavefunction of a Gaussian wave packet, centered on <Latex>{`\\(x=\\mu\\)`}</Latex>:
-          <Latex>{`$$\\Psi(x, 0)=\\frac{e^{i\\phi}}{(2\\pi\\sigma^2)^{1/4}} e^{-\\frac{(x-\\mu)^2}{4\\sigma^2}},$$`}</Latex>
+          wavefunction of a Gaussian wave packet, centered on <MathJax inline>{`\\(x=\\mu\\)`}</MathJax>:
+          <MathJax>{`$$\\Psi(x, 0)=\\frac{e^{i\\phi}}{(2\\pi\\sigma^2)^{1/4}} e^{-\\frac{(x-\\mu)^2}{4\\sigma^2}},$$`}</MathJax>
           where
         </Text>
 
         <Flex direction="column" gap="1" asChild>
         <ul>
           <li>
-              <Latex>{`\\(\\phi\\)`}</Latex> represents some arbitary real phase-angle,
+              <MathJax inline>{`\\(\\phi\\)`}</MathJax> represents some arbitary real phase-angle,
           </li>
           <li>
-              <Latex>{`\\(\\mu\\)`}</Latex> represents the mean or central value of the distribution, which
+              <MathJax inline>{`\\(\\mu\\)`}</MathJax> represents the mean or central value of the distribution, which
               determines where the peak of the curve is located on the x-axis,
           </li>
           <li>
-              <Latex>{`\\(\\sigma\\)`}</Latex> represents the standard deviation, which determines the
+              <MathJax inline>{`\\(\\sigma\\)`}</MathJax> represents the standard deviation, which determines the
               spread or width of the curve, and
           </li>
           <li>
-              <Latex>{`\\(\\phi\\)`}</Latex> is the phase of the exponential, and is proportional to the
-              product of a wavevector <Latex>{`\\(k_0\\)`}</Latex> and the position <Latex>{`\\(x\\)`}</Latex>.
+              <MathJax inline>{`\\(\\phi\\)`}</MathJax> is the phase of the exponential, and is proportional to the
+              product of a wavevector <MathJax inline>{`\\(k_0\\)`}</MathJax> and the position <MathJax inline>{`\\(x\\)`}</MathJax>.
           </li>
           </ul>
         </Flex>
 
         <Text size="3">
           Now that we have our Gaussian wavefunction, we can construct the Hamiltonian
-          <Latex>{`$$ H = -\\frac{\\hbar^{2}}{2m}\\nabla^{2} + V(x) $$`}</Latex>
-          letting <Latex>{`\\(\\hbar\\) = 1`}</Latex> and <Latex>{`\\(m\\) = 1`}</Latex> for simplicity.
+          <MathJax>{`$$ H = -\\frac{\\hbar^{2}}{2m}\\nabla^{2} + V(x) $$`}</MathJax>
+          letting <MathJax inline>{`\\(\\hbar\\) = 1`}</MathJax> and <MathJax inline>{`\\(m\\) = 1`}</MathJax> for simplicity.
           Notice that we have a 1D Laplacian operator,
-          <Latex>{`$$\\nabla^{2} \\equiv \\frac{\\partial^2 f}{\\partial x^2}$$`}</Latex>
+          <MathJax>{`$$\\nabla^{2} \\equiv \\frac{\\partial^2 f}{\\partial x^2}$$`}</MathJax>
           which will have to be discretized to solve the Schrodinger equation numerically.
         </Text>
         </Flex>
@@ -164,20 +164,20 @@ const Methods = () => {
                 To discretize the Laplacian — for example, in two dimensions, we can
                 use a formula that approximates the second derivatives with
                 differences in function values at neighboring grid points:
-                <Latex>
-                  {String.raw`$$
+                <MathJax>
+                  {`$$
                     \nabla^{2}f \approx \frac{f(i+1,j)-2f(i,j)+f(i-1,j)}{(\Delta x)^{2}}
                     + \frac{f(i,j+1)-2f(i,j)+f(i,j-1)}{(\Delta y)^{2}}
                   $$`}
-                </Latex>
+                </MathJax>
                 where:
                 <ul>
                   <li>
-                    <Latex>{`\\( f(i,j) \\)`}</Latex> represents the value of the function
-                    at grid point <Latex>{`\\( (i,j) \\)`}</Latex>
+                    <MathJax inline>{`\\( f(i,j) \\)`}</MathJax> represents the value of the function
+                    at grid point <MathJax inline>{`\\( (i,j) \\)`}</MathJax>
                   </li>
                   <li>
-                    <Latex>{String.raw`\( \Delta x \)`}</Latex> and <Latex>{String.raw`\( \Delta y \)`}</Latex> are the grid spacings in the x and
+                    <MathJax inline>{`\( \Delta x \)`}</MathJax> and <MathJax inline>{`\( \Delta y \)`}</MathJax> are the grid spacings in the x and
                     y directions, respectively.
                   </li>
                 </ul>
@@ -185,7 +185,7 @@ const Methods = () => {
               <Text>
                 This discrete approximation replaces the Laplacian operator in the
                 PDE with a system of equations, allowing us to update the function {" "}
-                <Latex>{String.raw`\( f\ \)`}</Latex>at each grid point over time. Finite differences methods can
+                <MathJax inline>{`\( f\ \)`}</MathJax>at each grid point over time. Finite differences methods can
                 be classified into explicit and implicit schemes, each with its own
                 advantages and limitations. They are particularly suitable for
                 problems with regular geometries and straightforward boundary
@@ -225,7 +225,7 @@ const Methods = () => {
           dimension and are applying the Laplacian operator to our wavefunctions,
           hence our spatial discretization formula for the Laplacian operator
           acting on a wavefunction is
-          <Latex>{`$$\\nabla^{2}\\psi \\approx \\frac{\\psi_{i+1} - 2\\psi_{i} + \\psi_{i-1}}{\\Delta x^{2}}$$`}</Latex>
+          <MathJax>{`$$ \\nabla^{2}\\psi \\approx \\frac{\\psi_{i+1} - 2\\psi_{i} + \\psi_{i-1}}{\\Delta x^{2}} $$`}</MathJax>
           Now we can time discretize the complete Schrodinger equation in time
           with respect to some numerical method. Continue...
         </Text>

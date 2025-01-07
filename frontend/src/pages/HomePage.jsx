@@ -12,7 +12,7 @@ import {
   HoverCard,
   Strong,
 } from "@radix-ui/themes";
-import Latex from "react-latex-next";
+import { MathJax } from "better-react-mathjax";
 
 const Home = () => {
   return (
@@ -101,16 +101,14 @@ const Home = () => {
         <Flex direction='column'>
           <Text as='p' size="3">
             A Gaussian is a special function of the form:
-            <Latex>
-              {String.raw`$$ 
-                g(x) = e^{-x^2} 
-                \quad \text{or} \quad
-                g(x) = a e^{-\frac{(x-b)^2}{4c^2}}
+            <MathJax>
+              {`$$
+                g(x) = e^{-x^2} \\quad \\text{or} \\quad g(x) = a e^{-\\frac{(x-b)^2}{4c^2}}
               $$`}
-            </Latex>
-            where <Latex>{`\\( a \\)`}, {`\\( b \\)`}, {`\\( c \\neq 0 \\)`}</Latex>, and {" "}
-            <Latex>{`\\( a \\)`}</Latex>  is the height of the curve's peak, <Latex>{`\\( b \\)`}</Latex> is the position of the center of the peak,{" "}
-            <Latex>{`\\( c \\)`}</Latex> (the standard deviation) controls the width of the "bell."
+            </MathJax>
+            where <MathJax inline>{`\\( a \\)`}, {`\\( b \\)`}, {`\\( c \\neq 0 \\)`}</MathJax>, and {" "}
+            <MathJax inline>{`\\( a \\)`}</MathJax>  is the height of the curve's peak, <MathJax inline>{`\\( b \\)`}</MathJax> is the position of the center of the peak,{" "}
+            <MathJax inline>{`\\( c \\)`}</MathJax> (the standard deviation) controls the width of the "bell."
           </Text>
           <br />
           <Text as="p" size='3'>
@@ -132,7 +130,7 @@ const Home = () => {
                 </HoverCard.Content>
               </HoverCard.Root> {" "}
               
-              <Latex>{`\\( \\Psi(\\mathbf{r}, t) \\)`}</Latex>, are localized in
+              <MathJax inline>{`\\( \\Psi(\\mathbf{r}, t) \\)`}</MathJax>, are localized in
               both position and momentum, and are used to describe QM scenarios
               where particles do not have well-defined positions or momenta. We 
               also use Gaussian wave packets because they:
