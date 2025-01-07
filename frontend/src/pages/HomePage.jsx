@@ -13,7 +13,6 @@ import {
   Strong,
 } from "@radix-ui/themes";
 import Latex from "react-latex-next";
-import "katex/dist/katex.min.css";
 
 const Home = () => {
   return (

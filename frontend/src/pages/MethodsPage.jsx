@@ -1,7 +1,6 @@
 import React from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import Latex from "react-latex-next";
-import "katex/dist/katex.min.css";
 import { Container, Box, Text, Heading, Flex, Separator } from "@radix-ui/themes";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 

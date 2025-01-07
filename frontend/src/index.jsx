@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import "katex/dist/katex.min.css";
 
 //optional? external scripts (Plotly and Pyodide)
 const loadExternalScripts = () => {

@@ -26,3 +26,4 @@ yarn-error.log*
 
 gaussian_tester.ipynb
 vercel.json
+frontend/bundle-visualization.html
