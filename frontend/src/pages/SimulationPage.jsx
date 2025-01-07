@@ -185,15 +185,11 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     <Flex
       direction="column"
       style={{
-        alignContent: "center",
-        justifyContent: "center",
         height: "100%",
         marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
       }}
     >
-      <Container>
+      <Container className="InfoContainer">
         <Flex gap='4' direction='column'>
           <Box>
           <Heading as="h2">{title} Simulation</Heading>
@@ -220,122 +216,123 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
             around the mean <Latex>{`\\(\\mu\\)`}</Latex>.
           </Text>
           </Flex>
+
+        <Section py='6'>
+          <Container>
+          <Collapsible.Root defaultOpen className="CollapsibleRoot">
+            <Collapsible.Trigger asChild>
+              <Text size='3' style={{ cursor: "pointer" }} weight='bold'>
+                {title} Parameters <CaretDownIcon className="CaretDown" aria-hidden />
+              </Text>
+            </Collapsible.Trigger>
+    
+            <Collapsible.Content className="CollapsibleContent" style={{ marginTop: "1em", marginBottom: '1em'}}>
+            <Section p='0' style={{paddingBottom: '1em'}}>
+                <Callout.Root color="gold">
+                  <Callout.Icon>
+                    <InfoCircledIcon />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    This animation is best viewed on desktop. You may experience some
+                    performance issues on older mobile devices.
+                  </Callout.Text>
+                </Callout.Root>
+              </Section>
+              <Flex direction='column' gap='5'>
+                <Flex gap='1em' className="ParameterFlex" width={{ initial: 'auto', sm: 'auto', md: 'auto' }}>
+                {defaultParameters.map((param) => (
+                  <Box key={param.name}  width={{initial: '100%', sm: 'auto', md: 'auto'}} style={{ alignContent: 'center'}}>
+                    <Text size="3" as="p" align='left' style={{ paddingBottom: '1em'}}>
+                      {param.label}:
+                    </Text>
+                    <Slider.Root
+                      size='3'
+                      variant='surface'
+                      className="SliderRoot"
+                      onValueChange={(value) => handleParameterChange(param.name, value[0] || param.default)}
+                      defaultValue={[param.default]}
+                      min={param.min}
+                      max={param.max}
+                      step={param.step}
+                    >
+                      <Slider.Track className="SliderTrack">
+                        <Slider.Range className="SliderRange" />
+                      </Slider.Track>
+                      <Slider.Thumb className="SliderThumb" aria-label={param.label} />
+                    </Slider.Root>
+                    <Flex direction="row" gap='2' style={{ width: '100%', marginTop: 5,  }}>
+                      <Badge variant='soft' size='2'>
+                        Min: {param.min}
+                      </Badge>
+                      <Badge variant="soft" size='2'>
+                        Max: {param.max}
+                      </Badge>
+                      <Badge variant="soft" size='2'>
+                        Current: {currentValues[param.name]}
+                      </Badge>
+                    </Flex>
+                  </Box>
+                ))}
+                </Flex>
+                <Flex style={{flexWrap: 'wrap'}} className="ButtonContainer">
+                  <Button
+                    size="3"
+                    width='100%'
+                    variant="solid"
+                    className="CustomButton"
+                    onClick={fetchSimulationData}
+                    disabled={isLoading || simulationData}
+                  >
+                    {isLoading ? (
+                      <Flex align="center" gap="2">
+                        <Spinner />
+                        {simulationData ? 'Simulation Loaded' : 'Running...'}
+                      </Flex>
+                    ) : simulationData ? (
+                      'Simulation Loaded'
+                    ) : (
+                      'Run Simulation'
+                    )}
+                  </Button>
+                  <Button
+                    variant="solid"
+                    width='100%'
+                    size="3"
+                    className="CustomButton"
+                    onClick={startAnimation}
+                    disabled={!simulationData || isLoading}
+                  >
+                    Start Animation
+                  </Button>
+                  <Button
+                    variant="solid"
+                    width="100%"
+                    size="3"
+                    className="CustomButton"
+                    onClick={pauseAnimation}
+                    disabled={!simulationData || isLoading }
+                  >
+                    Pause Animation
+                  </Button>
+                  <Button
+                    variant="solid"
+                    width="100%"
+                    size="3"
+                    className="CustomButton"
+                    onClick={resetAnimation}
+                    disabled={!simulationData || isLoading}
+                  >
+                    Reset Animation
+                  </Button>
+                </Flex>
+              </Flex>
+            </Collapsible.Content>
+          </Collapsible.Root>
+          </Container>
+        </Section>
+        {result && <Box><Text>Simulation Result: {result}</Text></Box>}
       </Container>
 
-      <Section py='6'>
-        <Container>
-        <Collapsible.Root defaultOpen className="CollapsibleRoot">
-          <Collapsible.Trigger asChild>
-            <Text size='3' style={{ cursor: "pointer" }} weight='bold'>
-              {title} Parameters <CaretDownIcon className="CaretDown" aria-hidden />
-            </Text>
-          </Collapsible.Trigger>
-  
-          <Collapsible.Content className="CollapsibleContent" style={{ marginTop: "1em", marginBottom: '1em'}}>
-          <Section p='0' style={{paddingBottom: '1em'}}>
-              <Callout.Root color="gold">
-                <Callout.Icon>
-                  <InfoCircledIcon />
-                </Callout.Icon>
-                <Callout.Text>
-                  This animation is best viewed on desktop. You may experience some
-                  performance issues on older mobile devices.
-                </Callout.Text>
-              </Callout.Root>
-            </Section>
-            <Flex direction='column' gap='5'>
-              <Flex gap='1em' className="ParameterFlex" width={{ initial: 'auto', sm: 'auto', md: 'auto' }}>
-              {defaultParameters.map((param) => (
-                <Box key={param.name}  width={{initial: '100%', sm: 'auto', md: 'auto'}} style={{ alignContent: 'center'}}>
-                  <Text size="3" as="p" align='left' style={{ paddingBottom: '1em'}}>
-                    {param.label}:
-                  </Text>
-                  <Slider.Root
-                    size='3'
-                    variant='surface'
-                    className="SliderRoot"
-                    onValueChange={(value) => handleParameterChange(param.name, value[0] || param.default)}
-                    defaultValue={[param.default]}
-                    min={param.min}
-                    max={param.max}
-                    step={param.step}
-                  >
-                    <Slider.Track className="SliderTrack">
-                      <Slider.Range className="SliderRange" />
-                    </Slider.Track>
-                    <Slider.Thumb className="SliderThumb" aria-label={param.label} />
-                  </Slider.Root>
-                  <Flex direction="row" gap='2' style={{ width: '100%', marginTop: 5,  }}>
-                    <Badge variant='soft' size='2'>
-                      Min: {param.min}
-                    </Badge>
-                    <Badge variant="soft" size='2'>
-                      Max: {param.max}
-                    </Badge>
-                    <Badge variant="soft" size='2'>
-                      Current: {currentValues[param.name]}
-                    </Badge>
-                  </Flex>
-                </Box>
-              ))}
-              </Flex>
-              <Flex style={{flexWrap: 'wrap'}} className="ButtonContainer">
-                <Button
-                  size="3"
-                  width='100%'
-                  variant="solid"
-                  className="CustomButton"
-                  onClick={fetchSimulationData}
-                  disabled={isLoading || simulationData}
-                >
-                  {isLoading ? (
-                    <Flex align="center" gap="2">
-                      <Spinner />
-                      {simulationData ? 'Simulation Loaded' : 'Running...'}
-                    </Flex>
-                  ) : simulationData ? (
-                    'Simulation Loaded'
-                  ) : (
-                    'Run Simulation'
-                  )}
-                </Button>
-                <Button
-                  variant="solid"
-                  width='100%'
-                  size="3"
-                  className="CustomButton"
-                  onClick={startAnimation}
-                  disabled={!simulationData || isLoading}
-                >
-                  Start Animation
-                </Button>
-                <Button
-                  variant="solid"
-                  width="100%"
-                  size="3"
-                  className="CustomButton"
-                  onClick={pauseAnimation}
-                  disabled={!simulationData || isLoading }
-                >
-                  Pause Animation
-                </Button>
-                <Button
-                  variant="solid"
-                  width="100%"
-                  size="3"
-                  className="CustomButton"
-                  onClick={resetAnimation}
-                  disabled={!simulationData || isLoading}
-                >
-                  Reset Animation
-                </Button>
-              </Flex>
-            </Flex>
-          </Collapsible.Content>
-        </Collapsible.Root>
-        </Container>
-      </Section>
-      {result && <Box><Text>Simulation Result: {result}</Text></Box>}
 
       <Box>
         {isLoading ? (

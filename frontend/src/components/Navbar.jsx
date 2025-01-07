@@ -2,78 +2,72 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { CaretDownIcon } from "@radix-ui/react-icons";
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
+
+const navItems = [
+  { label: 'Home', to: '/' },
+  { 
+    label: 'Simulations',
+    subItems: [
+      { name: 'Rectangular Barrier', to: '/rectangular-barrier', caption: "Rectangular potential barriers"},
+      { name: 'Parabolic Barrier', to: '/parabolic-barrier',  caption: "Rectangular potential barriers" },
+      { name: 'Rectangular Well', to: '/rectangular-well',  caption: "Rectangular well barriers" },
+    ]
+  },
+  { label: 'Methods', to: '/methods' },
+  { label: 'About', to: '/about' },
+];
+
 
 const Navbar = () => {
   return (
     <NavigationMenu.Root className="NavigationMenuRoot">
       <NavigationMenu.List className="NavigationMenuList">
+        {navItems.map((item) => {
+          if (item.subItems) {
+            return (
+              <NavigationMenu.Item key={item.label}>
+                <NavigationMenu.Trigger className="NavigationMenuTrigger" asChild>
+                <Text size="3" className="ListItemHeading"> {item.label} <CaretDownIcon className="CaretDown" aria-hidden /> </Text>
+                </NavigationMenu.Trigger>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Link className="NavigationMenuLink" asChild>
-            <Link to="/">Home</Link>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
+                <NavigationMenu.Content className="NavigationMenuContent">
+                  <Flex direction="column">
+                    {item.subItems.map((subItem) => (
+                      <NavigationMenu.Link key={subItem.to} asChild>
+                        <Link to={subItem.to} className="ListItemLink">
+                          <Text size="3" className="ListItemHeading">
+                            {subItem.name}
+                          </Text>
+                          {/* {subItem.caption && (
+                            <Text size="2" className="ListItemText">
+                              {subItem.caption}
+                            </Text>
+                          )} */}
+                        </Link>
+                      </NavigationMenu.Link>
+                    ))}
+                  </Flex>
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+            );
+          }
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="NavigationMenuTrigger">
-            Simulations <CaretDownIcon className="CaretDown" aria-hidden />
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="NavigationMenuContent">
-            <Flex direction='column'>
-              <Box as='li'>
-                <NavigationMenu.Link asChild>
-                  <Link to="/rectangular-barrier" className="ListItemLink">
-                    <Text size='3' className="ListItemHeading">Rectangular Barrier</Text>
-                    {/* <Text size='3' className="ListItemText">
-                      Rectangular potential barriers.
-                    </Text> */}
-                  </Link>
-                </NavigationMenu.Link>
-              </Box>
-              <Box as='li'>
-                <NavigationMenu.Link asChild>
-                  <Link to="/parabolic-barrier" className="ListItemLink">
-                    <Text size='3' className="ListItemHeading">Parabolic Barrier</Text>
-                    {/* <Text size='3' className="ListItemText">
-                      Parabolic potential barriers.
-                    </Text> */}
-                  </Link>
-                </NavigationMenu.Link>
-              </Box>
-              <Box as='li'>
-                <NavigationMenu.Link asChild>
-                  <Link to="/rectangular-well" className="ListItemLink">
-                    <Text size='3' className="ListItemHeading">Rectangular Well</Text>
-                    {/* <Text size='3' className="ListItemText">
-                      Potential well barriers.
-                    </Text> */}
-                  </Link>
-                </NavigationMenu.Link>
-              </Box>
-            </Flex>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
+          return (
+            <NavigationMenu.Item key={item.label}>
+              <NavigationMenu.Link className="NavigationMenuLink" asChild>
+                <Link to={item.to}>{item.label}</Link>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+          );
+        })}
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Link className="NavigationMenuLink" asChild>
-            <Link to="/methods">Methods</Link>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-
-        <NavigationMenu.Item>
-          <NavigationMenu.Link className="NavigationMenuLink" asChild>
-            <Link to="/about">About</Link>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-
-        <NavigationMenu.Indicator className="NavigationMenuIndicator">
-        </NavigationMenu.Indicator>
+        <NavigationMenu.Indicator className="NavigationMenuIndicator" />
       </NavigationMenu.List>
 
-      <Box className="ViewportPosition">
+      <div className="ViewportPosition">
         <NavigationMenu.Viewport className="NavigationMenuViewport" />
-      </Box>
+      </div>
     </NavigationMenu.Root>
   );
 };

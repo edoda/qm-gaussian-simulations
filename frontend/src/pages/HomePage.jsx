@@ -1,6 +1,4 @@
 import React from "react";
-import Latex from "react-latex-next";
-import "katex/dist/katex.min.css";
 import {
   Box,
   Heading,
@@ -14,10 +12,12 @@ import {
   HoverCard,
   Strong,
 } from "@radix-ui/themes";
+import Latex from "react-latex-next";
+import "katex/dist/katex.min.css";
 
 const Home = () => {
   return (
-    <Container width={'100%'}>
+    <Container className='InfoContainer'>
       <Section py='6'>
         <Heading
           size="8"
@@ -29,6 +29,7 @@ const Home = () => {
           Quantum Gaussian Wave Packet Propagation Simulations
         </Heading>
       </Section>
+
       <Grid
         className="AboutContainer"
         columns={{ initial: "1fr", md: "1fr 1fr" }}
@@ -64,41 +65,42 @@ const Home = () => {
           </Heading>
           <Separator orientation="horizontal" size="4" />
           <Section py="3">
-            <Flex as="ul" direction="column" gap="1" style={{ margin: 0 }}>
-              <Box as="li">
+            <Flex direction="column" gap="1" asChild>
+              <ul>
+              <li>
                 <Text as="p" size="3">
                   <Strong>Localization:</Strong> Wave packets are localized in
                   both position and momentum space.
                 </Text>
-              </Box>
-              <Box as="li">
+              </li>
+              <li>
                 <Text as="p" size="3">
                   <Strong>Dispersion:</Strong> Over time, a wave packet will 
                   typically spread out due to the uncertainty principle. This 
                   dispersion leads to a gradual increase in the uncertainty in 
                   both position and momentum.
                 </Text>
-              </Box>
-              <Box as="li">
+              </li>
+              <li>
                 <Text as="p" size="3">
                   <Strong>Group Velocity:</Strong> The group velocity of a wave
                   packet represents the velocity at which the maximum amplitude
                   of the wave packet moves through space. This velocity is
                   associated with the particle's classical velocity.
                 </Text>
-              </Box>
+              </li>
+              </ul>
             </Flex>
           </Section>
         </Box>
       </Grid>
 
-
-      <Section className="InfoSection" py='6'>
+      <Section py='6'>
         <Heading as="h2" size="6" align='center'>
           What is a Gaussian wave packet, and why do we use them?
         </Heading>
-        <Flex as='ul' direction='column'>
-          <Text size="3" style={{ marginTop: "1rem" }}>
+        <Flex direction='column'>
+          <Text as='p' size="3">
             A Gaussian is a special function of the form:
             <Latex>
               {String.raw`$$ 
@@ -136,19 +138,21 @@ const Home = () => {
               where particles do not have well-defined positions or momenta. We 
               also use Gaussian wave packets because they:
           </Text>
-          <Flex direction={'column'}>
-          <Text as='li' size='3' style={{display: 'list-item', listStyle: 'disc', listStylePosition: "inside",}}>
-              are mathematically basic and simple to work with,
-          </Text>
-          <Text as='li' size='3' style={{display: 'list-item', listStyle: 'disc', listStylePosition: "inside",}}>
-            are useful for approximating more complex function, and are consistent with many experiemental observations,
-          </Text>
-          <Text as='li' size='3' style={{display: 'list-item', listStyle: 'disc', listStylePosition: "inside",}}>
-          yield bell-shaped probability distributions, and
-          </Text>
-          <Text as='li' size='3' style={{ display: 'list-item', listStyle: 'disc', listStylePosition: "inside" }}>
-            remain Gaussian functions when a Fourier transform is applied (we'll talk about this in <RadixLink asChild><a href="/methods">methods</a></RadixLink>).
-          </Text>
+          <Flex direction={'column'} asChild>
+            <ul>
+              <li>
+                  are mathematically basic and simple to work with,
+              </li>
+              <li>
+                are useful for approximating more complex function, and are consistent with many experiemental observations,
+              </li>
+              <li>
+              yield bell-shaped probability distributions, and
+              </li>
+              <li>
+                remain Gaussian functions when a Fourier transform is applied (we'll talk about this in <RadixLink asChild><a href="/methods">methods</a></RadixLink>).
+              </li>
+            </ul>
           </Flex>
         </Flex>
       </Section>
