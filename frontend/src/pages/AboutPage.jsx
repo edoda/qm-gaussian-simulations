@@ -51,10 +51,8 @@ const About = () => {
             <Flex direction='column' gap='1'>
                 <Text as='p'><Strong>React</Strong>: Used for creating the frontend. More specifically, RadixUI was used for styling.</Text>
                 <Text as='p'><Strong>Python</Strong>: Used for creating the physics simulations.</Text>
-                <Text as='p'><Strong>Vercel</Strong>: A cloud platform used for deploying this static web project.</Text>
                 <Text as='p'><Strong>Flask</Strong>: A Python web framework that allows users to run Python in various environments.</Text>
                 <Text as='p'><Strong>Plotly</Strong>: An open-source Python visualization library/module for creating interactive graphs and animations.</Text>
-                <Text as='p'><Strong>Pyodide</Strong>: A Python distribution for the browser and Node.js based on WebAssembly. Allows Python to run in web browser.</Text>
                 <Text as='p'><Strong>NumPy</Strong>: A python library used for general numerical calculations.</Text>
                 <Text><Strong>SciPy</Strong>: A python library used for specific scientific calculations.</Text>
             </Flex>

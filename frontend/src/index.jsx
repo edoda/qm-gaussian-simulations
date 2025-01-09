@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Theme } from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
 import { MathJaxContext } from "better-react-mathjax";
+import './styles.css';
+import "@radix-ui/themes/styles.css";
 
 const config = {
   loader: { load: ["[tex]/html"] },

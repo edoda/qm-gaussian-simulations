@@ -64,7 +64,6 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     }
   };
   
-
   useEffect(() => {
     if (simulationData) {
       const initialFrame = simulationData[0];
