@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Theme } from "@radix-ui/themes";
 import { MathJaxContext } from "better-react-mathjax";
-import './styles.css';
+import '../styles.css';
 import "@radix-ui/themes/styles.css";
 
 const config = {
