@@ -166,8 +166,8 @@ const Methods = () => {
                 differences in function values at neighboring grid points:
                 <MathJax>
                   {`$$
-                    \nabla^{2}f \approx \frac{f(i+1,j)-2f(i,j)+f(i-1,j)}{(\Delta x)^{2}}
-                    + \frac{f(i,j+1)-2f(i,j)+f(i,j-1)}{(\Delta y)^{2}}
+                    \\nabla^{2}f \\approx \\frac{f(i+1,j)-2f(i,j)+f(i-1,j)}{(\\Delta x)^{2}}
+                    + \\frac{f(i,j+1)-2f(i,j)+f(i,j-1)}{(\\Delta y)^{2}}
                   $$`}
                 </MathJax>
                 where:
