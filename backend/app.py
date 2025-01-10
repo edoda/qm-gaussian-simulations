@@ -5,8 +5,17 @@ from simulations.parabolic_barrier import ParabolicBarrier
 from simulations.rectangular_barrier import RectangularBarrier
 from flask_cors import CORS
 
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+frontend_url = os.environ.get("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173" ]}}, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
 
 @app.route('/api/simulate', methods=['POST'])
 def simulate():
