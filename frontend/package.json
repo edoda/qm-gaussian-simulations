@@ -23,6 +23,7 @@
     "better-react-mathjax": "^2.0.4-beta1",
     "dotenv": "^16.4.7",
     "react": "^18.2.0",
+    "react-dom": "18.0",
     "react-router-dom": "^6.4.0"
   },
   "devDependencies": {
@@ -38,7 +39,6 @@
     "globals": "^15.14.0",
     "rollup": "^4.30.0",
     "rollup-plugin-visualizer": "^5.14.0",
-    "vite": "^6.0.7",
-    "vite-plugin-vercel": "^9.0.4"
+    "vite": "^6.0.7"
   }
 }
