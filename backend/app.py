@@ -1,9 +1,9 @@
 import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from simulations.rectangular_well import RectangularWell
 from simulations.parabolic_barrier import ParabolicBarrier
 from simulations.rectangular_barrier import RectangularBarrier
-from flask_cors import CORS
 
 allowed_origins = [
     "http://localhost:5173",
@@ -12,6 +12,7 @@ allowed_origins = [
 
 frontend_url = os.environ.get("FRONTEND_URL")
 if frontend_url:
+    print(frontend_url)
     allowed_origins.append(frontend_url)
 
 app = Flask(__name__)

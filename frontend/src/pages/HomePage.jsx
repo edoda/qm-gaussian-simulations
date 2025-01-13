@@ -16,6 +16,7 @@ import { MathJax } from "better-react-mathjax";
 
 const Home = () => {
   return (
+    
     <Container className='InfoContainer'>
       <Section py='6'>
         <Heading

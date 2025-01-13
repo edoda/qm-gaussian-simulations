@@ -44,8 +44,8 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     setIsLoading(true);
     let data = null;
     try {
-      console.log("Payload sent to API:", { simulation_type: simulationType, parameters });
-      const response = await fetch(`/api/simulate`, {
+      // console.log("Payload sent to API:", { simulation_type: simulationType, parameters });
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/simulate`, {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -104,9 +104,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
         yaxis: { title: "Amplitude", range: [-0.5, 0.5] },
       }, {scrollZoom: true});
       simRef.current?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      console.log("Plotly initialization skipped...simulationData is null.");
-    }
+    } 
   }, [simulationData]);
 
   useEffect(() => {
