@@ -65,31 +65,23 @@ const Home = () => {
           </Heading>
           <Separator orientation="horizontal" size="4" />
           <Section py="3">
-            <Flex direction="column" gap="1" asChild>
-              <ul>
-              <li>
+            <Flex direction="column" gap="1">
                 <Text as="p" size="3">
                   <Strong>Localization:</Strong> Wave packets are localized in
                   both position and momentum space.
                 </Text>
-              </li>
-              <li>
                 <Text as="p" size="3">
                   <Strong>Dispersion:</Strong> Over time, a wave packet will 
                   typically spread out due to the uncertainty principle. This 
                   dispersion leads to a gradual increase in the uncertainty in 
                   both position and momentum.
                 </Text>
-              </li>
-              <li>
                 <Text as="p" size="3">
                   <Strong>Group Velocity:</Strong> The group velocity of a wave
                   packet represents the velocity at which the maximum amplitude
                   of the wave packet moves through space. This velocity is
                   associated with the particle's classical velocity.
                 </Text>
-              </li>
-              </ul>
             </Flex>
           </Section>
         </Box>

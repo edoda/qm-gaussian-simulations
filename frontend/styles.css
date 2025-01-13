@@ -112,8 +112,10 @@ h1, h2, h3 {
   border-radius: var(--radius-3);
   border: 2px solid var(--accent-11);
   padding: 1em;
+  margin: .5em;
   gap: 1em;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .NavigationMenuTrigger,

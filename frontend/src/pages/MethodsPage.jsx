@@ -22,19 +22,19 @@ const Methods = () => {
             <Box className="Eqn">
               <Heading as='h3' size='4'>Hamiltonian operator</Heading>
               <Text as='p' size='3'>
-                <MathJax>{`$$ \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) $$`}</MathJax>
+                <MathJax inline>{`\\( \\hat H = \\hat T + \\hat V = \\frac{\\mathbf{\\hat p \\cdot \\hat p}}{2m} + V(\\mathbf{r}, t) = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\)`}</MathJax>
               </Text>
             </Box>
             <Box className="Eqn">
               <Heading as='h3' size='4'>Time-dependent Schrödinger Equation</Heading>
               <Text as='p' size='3'>
-                <MathJax>{`$$ i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) $$`}</MathJax>
+                <MathJax inline>{`\\( i \\hbar \\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat H \\Psi(\\mathbf{r},t) \\)`}</MathJax>
               </Text>
             </Box>
             <Box className="Eqn">
               <Heading as='h3' size='4'>General solution to time-dependent Schrödinger equation</Heading>
               <Text as='p' size='3'>
-                <MathJax>{`$$ \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk $$`}</MathJax>
+                <MathJax inline>{`\\( \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t)dk \\)`}</MathJax>
               </Text>
             </Box>
           </Flex>
@@ -89,7 +89,7 @@ const Methods = () => {
           {" "} 
           <MathJax>{`$$\\hat H = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t) \\implies \\hat H =  -\\frac{\\hbar^2}{2m}\\frac{d^2}{dx^2} + V(x,t),$$`}</MathJax>
           and <MathJax inline>{`\\( \\Psi(x,t) \\)`}</MathJax>, our general solution to the time-dependent
-          Schrödinger equation becomes the integral over the continuous variable <MathJax inline>{`\\(k\\)`}</MathJax> for each stationary state <MathJax>{`\\(\\Psi_k\\)`}</MathJax>:
+          Schrödinger equation becomes the integral over the continuous variable <MathJax inline>{`\\(k\\)`}</MathJax> for each stationary state <MathJax inline>{`\\(\\Psi_k\\)`}</MathJax>:
           <MathJax>{`$$ \\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{\\infty}\\Phi(k)\\Psi_{k}(x,t) dk $$`}</MathJax>{" "}
           where
           <MathJax>{`$$ \\Psi_{k}(x,t) = e^{i(kx-\\frac{\\hbar k^2}{2m}t)} = e^{i(kx-\\frac{E_{k}}{\\hbar}t)} $$`}</MathJax>{" "}
@@ -177,7 +177,7 @@ const Methods = () => {
                     at grid point <MathJax inline>{`\\( (i,j) \\)`}</MathJax>
                   </li>
                   <li>
-                    <MathJax inline>{`\( \Delta x \)`}</MathJax> and <MathJax inline>{`\( \Delta y \)`}</MathJax> are the grid spacings in the x and
+                    <MathJax inline>{`\\( \\Delta x \\)`}</MathJax> and <MathJax inline>{`\\( \\Delta y \\)`}</MathJax> are the grid spacings in the x and
                     y directions, respectively.
                   </li>
                 </ul>
@@ -185,7 +185,7 @@ const Methods = () => {
               <Text>
                 This discrete approximation replaces the Laplacian operator in the
                 PDE with a system of equations, allowing us to update the function {" "}
-                <MathJax inline>{`\( f\ \)`}</MathJax>at each grid point over time. Finite differences methods can
+                <MathJax inline>{`\\( f\\ \\)`}</MathJax>at each grid point over time. Finite differences methods can
                 be classified into explicit and implicit schemes, each with its own
                 advantages and limitations. They are particularly suitable for
                 problems with regular geometries and straightforward boundary
@@ -227,10 +227,10 @@ const Methods = () => {
           acting on a wavefunction is
           <MathJax>{`$$ \\nabla^{2}\\psi \\approx \\frac{\\psi_{i+1} - 2\\psi_{i} + \\psi_{i-1}}{\\Delta x^{2}} $$`}</MathJax>
           Now we can time discretize the complete Schrodinger equation in time
-          with respect to some numerical method. Continue...
+          with respect to some numerical method.
         </Text>
-
-        <Text size="3">(add references/sources here)</Text>
+        <Separator orientation="horizontal" size="4" />
+        <Text size="3" align='center'>[Still a work in progress!]</Text>
       </Flex>
     </Container>
   );
