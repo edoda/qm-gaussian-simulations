@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
 
 @app.route('/api/simulate', methods=['POST'])
-@cross_origin(supports_credentials=True)
+# @cross_origin(supports_credentials=True)
 def simulate():
     data = request.json
     sim_type = data['simulation_type']
