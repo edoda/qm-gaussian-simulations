@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+ padding-bottom: 0.5em;
+}
+
+.AboutContainer {
+  padding: 1.5em;
+  box-sizing: border-box;
+  background-color: var(--accent-2);
+  box-shadow: var(--shadow-2);
+  border-radius: var(--radius-3); 
+  border: 2px solid var(--accent-10); 
+  color: var(--accent-12); 
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2em;
+  align-content: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .AboutContainer {
+    grid-template-columns: 1fr 1fr; 
+  }
+}
+
+.GridSection {
+  box-sizing: border-box;
+  text-align: left;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.AboutContainerVariant {
+  width: 100%;
+  padding: 2em;
+  box-sizing: border-box;
+  align-content: center;
+  background-color: var(--accent-1);
+  border: 2px solid var(--accent-10);
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);  
+  color: var(--accent-12); 
+}
+
+.AboutContainerVariant h3, h2 { 
+  color: var(--accent-12); 
+}
+
+.InfoContainer {
+  width: 100%;
+  padding: 1.5em;
+  box-sizing: border-box;
+}
+
+.InfoSection h2 {
+  color: var(--accent-11);
+}
+
+.EqnContent {
+  border: 2px solid var(--accent-11);
+  background-color: var(--accent-2);
+  border-radius: var(--radius-3);  
+  padding: 1.5em;
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 10px;
+}
+
+.CustomButton {
+  box-shadow: var(--shadow-7);
+}
+
+.NavigationMenuRoot {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  width: 100%;
+}
+
+.NavigationMenuList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  background-color: var(--accent-2);
+  width: fit-content;
+  box-shadow: var(--shadow-4);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+  padding: 1em;
+  margin: .5em;
+  gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.NavigationMenuTrigger,
+.NavigationMenuLink {
+  padding: .5em;
+  color: var(--accent-11);
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  /* border: 2px solid var(--accent-11); */
+  border-radius: var(--radius-3);
+  transition: background-color 0.2s ease;
+  height: 100%;
+  font-weight: bold;
+}
+
+.NavigationMenuTrigger:hover,
+.NavigationMenuLink:hover {
+  background-color: var(--accent-9);
+  color: var(--accent-1);
+}
+
+.CaretDown {
+  margin-left: 1px;
+  transition: transform 250ms ease;
+}
+[data-state="open"] > .CaretDown {
+  transform: rotate(-180deg);
+}
+
+.NavigationMenuContent {
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background-color: var(--accent-1);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+  z-index: 101;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+}
+
+.ViewportPosition {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.NavigationMenuViewport {
+  position: relative;
+  transform-origin: top center;
+  background-color: var(--accent-1);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+  overflow: hidden;
+  box-shadow: var(--shadow-3);
+  height: var(--radix-navigation-menu-viewport-height);
+  transition: width, height, 300ms ease;
+  width: max-content;
+}
+
+.NavigationMenuViewport[data-state="open"] {
+  width: max-content;
+  animation: scaleIn 200ms ease;
+}
+
+.NavigationMenuViewport[data-state="closed"] {
+  animation: scaleOut 200ms ease;
+}
+
+.ListItemLink {
+  display: block;
+  text-decoration: none;
+  color: var(--accent-12);
+  font-size: 15px;
+  padding: 8px 12px;
+  transition: background-color 0.15s ease-in-out;
+  height: 100%;
+}
+.ListItemLink:hover {
+  background-color: var(--accent-4);
+}
+
+.ListItemHeading {
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: var(--accent-11);
+}
+.ListItemText {
+  color: var(--accent-9);
+  font-size: 14px;
+}
+
+.NavigationMenuContent[data-motion="from-start"] {
+  animation-name: enterFromLeft;
+}
+.NavigationMenuContent[data-motion="from-end"] {
+  animation-name: enterFromRight;
+}
+.NavigationMenuContent[data-motion="to-start"] {
+  animation-name: exitToLeft;
+}
+.NavigationMenuContent[data-motion="to-end"] {
+  animation-name: exitToRight;
+}
+
+
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes exitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+@keyframes exitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+@media (min-width: 600px) {
+  .NavigationMenuViewport {
+    width: var(--radix-navigation-menu-viewport-width);
+  }
+}
+
+.CollapsibleRoot {
+  background-color: var(--accent-2);
+  box-shadow: var(--shadow-3);
+  border-radius: var(--radius-3);
+  border: 2px solid var(--accent-11);
+  padding: 1em;
+}
+
+.CollapsibleContent {
+  margin-top: 1em;
+	overflow: hidden;
+}
+.CollapsibleContent[data-state="open"] {
+	animation: slideDown 300ms ease-out;
+}
+.CollapsibleContent[data-state="closed"] {
+	animation: slideUp 300ms ease-out;
+}
+
+@keyframes slideDown {
+	from {
+		height: 0;
+	}
+	to {
+		height: var(--radix-collapsible-content-height);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		height: var(--radix-collapsible-content-height);
+	}
+	to {
+		height: 0;
+	}
+}
+
+.PlotlyDiv {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.SliderRoot {
+	position: relative;
+	display: flex;
+	align-items: center;
+	user-select: none;
+	touch-action: none;
+	height: 20px;
+}
+
+.SliderTrack {
+	background-color: var(--accent-5);
+	position: relative;
+	flex-grow: 1;
+	border-radius: 9999px;
+	height: 4px;
+}
+
+.SliderRange {
+	position: absolute;
+	background-color: var(--accent-8);
+	border-radius: 9999px;
+	height: 100%;
+}
+
+.SliderThumb {
+	display: block;
+	width: 20px;
+	height: 20px;
+	background-color: var(--accent-10);
+	box-shadow: 0 2px 10px var(--gray-4);
+	border-radius: 10px;
+}
+.SliderThumb:hover {
+	background-color: var(--accent-6);
+}
+.SliderThumb:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--gray-6);
+}
+
+.ParameterFlex {
+  justify-items: center;
+  align-self: center;
+  flex-wrap: wrap;
+}
