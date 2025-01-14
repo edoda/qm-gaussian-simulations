@@ -13,7 +13,7 @@ import {
   Badge,
   Separator,
 } from "@radix-ui/themes";
-import { CaretDownIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { CaretDownIcon, InfoCircledIcon, PauseIcon, PlayIcon, ResetIcon } from "@radix-ui/react-icons";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import * as Slider from "@radix-ui/react-slider";
 import { MathJax } from 'better-react-mathjax';
@@ -45,7 +45,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     let data = null;
     try {
       // console.log("Payload sent to API:", { simulation_type: simulationType, parameters });
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/simulate`, {
+      const response = await fetch(`/api/simulate`, { //${import.meta.env.VITE_BACKEND_BASEURL}
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -297,7 +297,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
                     onClick={startAnimation}
                     disabled={!simulationData || isLoading}
                   >
-                    Start Animation
+                    <PlayIcon /> Start Animation
                   </Button>
                   <Button
                     variant="solid"
@@ -307,7 +307,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
                     onClick={pauseAnimation}
                     disabled={!simulationData || isLoading}
                   >
-                    Pause Animation
+                    <PauseIcon /> Pause Animation
                   </Button>
                   <Button
                     variant="solid"
@@ -317,7 +317,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
                     onClick={resetAnimation}
                     disabled={!simulationData || isLoading}
                   >
-                    Reset Animation
+                    <ResetIcon /> Reset Animation
                   </Button>
                 </Flex>
               </Flex>
