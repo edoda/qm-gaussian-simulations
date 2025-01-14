@@ -16,20 +16,32 @@ import { MathJax } from "better-react-mathjax";
 
 const Home = () => {
   return (
-    
-    <Container className='InfoContainer'>
-      <Section py='6'>
-        <Heading
-          size="8"
-          align='center'
-          trim='both'
-          weight='bold'
-          wrap='wrap'
-        >
-          Quantum Gaussian Wave Packet Propagation Simulations
-        </Heading>
-      </Section>
+    <>
+       <Box className="Hero">
+        <video
+          className="HeroVideo"
+          src="/gaussian.mov"
+          autoPlay
+          loop
+          muted
+        />
+        <Box className="HeroOverlay" />
+        <Section className="HeroContent">
+            <Heading
+              className="WebsiteTitle"
+              size="9"
+              align="center"
+              trim="both"
+              weight="bold"
+              wrap="wrap"
+              style={{padding: 0}}
+            >
+              Quantum Gaussian Wave Packet Propagation Simulations
+            </Heading>
+        </Section>
+      </Box>
 
+      <Container className='InfoContainer'>
       <Grid
         className="AboutContainer"
         columns={{ initial: "1fr", md: "1fr 1fr" }}
@@ -88,7 +100,7 @@ const Home = () => {
       </Grid>
 
       <Section py='6'>
-        <Heading as="h2" size="6" align='center'>
+        <Heading as="h2" size="6" align='left'>
           What is a Gaussian wave packet, and why do we use them?
         </Heading>
         <Flex direction='column'>
@@ -147,6 +159,7 @@ const Home = () => {
         </Flex>
       </Section>
     </Container>
+    </>
   );
 };
 

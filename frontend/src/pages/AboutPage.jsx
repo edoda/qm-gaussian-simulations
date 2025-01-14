@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container, Flex, Heading, Text, Section, Link as RadixLink, Separator, Strong, } from "@radix-ui/themes";
+import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 
 const About = () => {
   return (
@@ -27,14 +28,14 @@ const About = () => {
               <li>
                 <Text>
                   <RadixLink href="https://github.com/edoda" target="_blank" rel="noopener noreferrer">
-                    Github
+                    Github <GitHubLogoIcon />
                   </RadixLink>
                 </Text>
               </li>
               <li>
                 <Text>
                   <RadixLink href="https://www.linkedin.com/in/edoda/" target="_blank" rel="noopener noreferrer">
-                    LinkedIn
+                    LinkedIn <LinkedInLogoIcon />
                   </RadixLink>
                 </Text>
               </li>
