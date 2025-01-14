@@ -44,8 +44,7 @@ const SimulationPage = ({ title, description, simulationType, defaultParameters 
     setIsLoading(true);
     let data = null;
     try {
-      // console.log("Payload sent to API:", { simulation_type: simulationType, parameters });
-      const response = await fetch(`/api/simulate`, { //${import.meta.env.VITE_BACKEND_BASEURL}
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/simulate`, { //${import.meta.env.VITE_BACKEND_BASEURL}
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
